@@ -6,8 +6,14 @@ public class Piatto implements IPiatto {
 	
 
 	
-	public Piatto(String nome, double prezzo) {
+	public Piatto(String nome, double prezzo) throws InvalidInputException{
 		super();
+		
+		//Controllo se prezzo =>0
+		
+		if (prezzo<0)
+			throw new InvalidInputException("Prezzo negativo");
+		
 		this.nome = nome;
 		this.prezzo = prezzo;
 	}

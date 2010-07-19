@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import it.unina.maruzzella.InvalidInputException;
+
+
 public class TestPiatto {
 	
 	IPiatto piatto;
@@ -15,7 +18,7 @@ public class TestPiatto {
 	
 	
 	@Test
-	public void testCostruttorePiatto() {
+	public void testCostruttorePiatto() throws Exception {
 		String nome="Margherita";
 		double prezzo=3.50;
 		
@@ -24,6 +27,26 @@ public class TestPiatto {
 		assertEquals(nome, piatto.getNome());
 		assertEquals("Prezzo Errato",prezzo,piatto.getPrezzo(),0);
 		
+	}
+	
+	/* Test2
+	 * 
+	 * Testiamo il costruttore con un prezzo negativo
+	 * Ci aspettiamo il lancio di un'eccezione
+	 */
+	
+	@Test
+	public void testCostruttorePrezzoNegativo(){
+		String nome="Margherita";
+		double prezzo=-2;
+		
+		
+		try {
+			piatto= new Piatto(nome,prezzo);
+			fail("Eccezione non lanciata per inserimento prezzo minore di 0");
+		} catch (InvalidInputException e) {
+			assertEquals("Prezzo negativo", e.getMessage());
+		}
 	}
 
 }
