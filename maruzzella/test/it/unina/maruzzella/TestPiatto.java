@@ -48,5 +48,22 @@ public class TestPiatto {
 			assertEquals("Prezzo negativo", e.getMessage());
 		}
 	}
+	
+	/* Test3
+	 * 
+	 * Test con prezzo 0
+	 */
+	
+	@Test
+	public void testCostruttorePrezzoNullo() throws Exception{
+		String nome="Margherita";
+		double prezzo=0;
+		
+		piatto= new Piatto(nome, prezzo);
+		
+		assertEquals(nome, piatto.getNome());
+		assertEquals("Prezzo Errato",prezzo,piatto.getPrezzo(),0);
+		
+	}
 
 }
