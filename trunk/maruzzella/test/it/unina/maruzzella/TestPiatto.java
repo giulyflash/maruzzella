@@ -103,5 +103,41 @@ public class TestPiatto {
 		}
 		
 	}
+	
+	/* Test 6
+	 * 
+	 * Testiamo il costruttore della classe dando in INPUT nome  con spazio
+	 */
+	
+	
+	@Test
+	public void testCostruttorePiattoNomeConSpazio() throws Exception {
+		String nome="Ripeno Fritto con Ricotta e Pepe";
+		double prezzo=5;
+		
+		piatto= new Piatto(nome, prezzo);
+		
+		assertEquals(nome, piatto.getNome());
+		assertEquals("Prezzo Errato",prezzo,piatto.getPrezzo(),0);
+		
+	}
+	
+	/* Test 7
+	 * 
+	 * Testiamo il costruttore della classe dando in INPUT nome  con apostrofo
+	 */
+	
+	
+	@Test
+	public void testCostruttorePiattoNomeConApostrofo() throws Exception {
+		String nome="Pizza da' regina d'Inghilterra";
+		double prezzo=6;
+		
+		piatto= new Piatto(nome, prezzo);
+		
+		assertEquals(nome, piatto.getNome());
+		assertEquals("Prezzo Errato",prezzo,piatto.getPrezzo(),0);
+		
+	}
 
 }
