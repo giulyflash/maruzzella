@@ -65,5 +65,24 @@ public class TestPiatto {
 		assertEquals("Prezzo Errato",prezzo,piatto.getPrezzo(),0);
 		
 	}
+	
+	/* Test4
+	 * 
+	 * Test con nome vuoto
+	 */
+	
+	@Test
+	public void testCostruttoreNomeVuoto() throws Exception{
+		String nome="";
+		double prezzo=1;
+		
+		try {
+			piatto= new Piatto(nome,prezzo);
+			fail("Eccezione non lanciata per inserimento nome vuoto");
+		} catch (InvalidInputException e) {
+			assertEquals("Nome non specificato", e.getMessage());
+		}
+		
+	}
 
 }
