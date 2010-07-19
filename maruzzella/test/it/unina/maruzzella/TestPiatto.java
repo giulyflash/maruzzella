@@ -84,5 +84,24 @@ public class TestPiatto {
 		}
 		
 	}
+	
+	/* Test5
+	 * 
+	 * Test con nome null
+	 */
+	
+	@Test
+	public void testCostruttoreNomeNull() throws Exception{
+		String nome=null;
+		double prezzo=200;
+		
+		try {
+			piatto= new Piatto(nome,prezzo);
+			fail("Eccezione non lanciata per inserimento nome null");
+		} catch (InvalidInputException e) {
+			assertEquals("Nome Null", e.getMessage());
+		}
+		
+	}
 
 }
