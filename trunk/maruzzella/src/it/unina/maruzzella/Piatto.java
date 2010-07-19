@@ -14,6 +14,10 @@ public class Piatto implements IPiatto {
 		if (prezzo<0)
 			throw new InvalidInputException("Prezzo negativo");
 		
+		//Controllo se nome è vuoto
+		if (nome.length()<=0)
+			throw new InvalidInputException("Nome non specificato");
+		
 		this.nome = nome;
 		this.prezzo = prezzo;
 	}
