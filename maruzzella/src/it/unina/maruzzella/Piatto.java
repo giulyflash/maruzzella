@@ -15,13 +15,13 @@ public class Piatto implements IPiatto {
 	@Override
 	public String getNome() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.nome;
 	}
 
 	@Override
 	public double getPrezzo() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.prezzo;
 	}
 	
 }
