@@ -189,8 +189,60 @@ public class TestTavolo {
 		
 		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
-		
 		int coperti = 3;	
+		tavolo.setCoperti(coperti);
+	}
+	
+	
+	/* Test12
+	 * 
+	 * Testiamo il metodo setCoperti e getCoperti con valore non valido (minimo-1)
+	 */
+	@Test(expected=InvalidInputException.class)
+	public void testSetCopertiGetCopertiZero() throws InvalidInputException {
+		int numeroTavolo=7;
+		int maxCoperti=5;
+		double costoCoperto = 2;
+		
+		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		
+		int coperti = 0;	
+		tavolo.setCoperti(coperti);
+	}
+
+	
+	/* Test13
+	 * 
+	 * Testiamo il metodo setCoperti e getCoperti con valore valido (minimo)
+	 */
+	@Test
+	public void testSetCopertiGetCopertiUno() throws InvalidInputException {
+		int numeroTavolo=7;
+		int maxCoperti=5;
+		double costoCoperto = 2;
+		
+		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		
+		int coperti = 1;	
+		tavolo.setCoperti(coperti);
+		
+		assertEquals(coperti, tavolo.getCoperti());
+	}
+	
+	
+	/* Test14
+	 * 
+	 * Testiamo il metodo setCoperti e getCoperti con valore valido (minimo+1)
+	 */
+	@Test
+	public void testSetCopertiGetCopertiDue() throws InvalidInputException {
+		int numeroTavolo=7;
+		int maxCoperti=5;
+		double costoCoperto = 2;
+		
+		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		
+		int coperti = 2;	
 		tavolo.setCoperti(coperti);
 		
 		assertEquals(coperti, tavolo.getCoperti());

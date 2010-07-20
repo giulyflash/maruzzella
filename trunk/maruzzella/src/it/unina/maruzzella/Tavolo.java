@@ -44,7 +44,12 @@ public class Tavolo implements ITavolo {
 	}
 
 	@Override
-	public void setCoperti(int numCoperti) {
+	public void setCoperti(int numCoperti) throws InvalidInputException {
+		
+		if (numCoperti <= 0) {
+			throw new InvalidInputException("numCoperti deve essere maggiore di 0");
+		}
+		
 		this.coperti = numCoperti;
 	}
 
