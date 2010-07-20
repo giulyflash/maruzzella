@@ -19,7 +19,7 @@ public class Tavolo implements ITavolo {
 		}
 		
 		if (maxCoperti <= 1) {
-			throw new InvalidInputException("Numero coperti deve essere maggiore di 1");
+			throw new InvalidInputException("maxCoperti deve essere maggiore di 1");
 		}
 		
 		this.numero = numero;
