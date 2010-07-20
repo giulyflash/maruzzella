@@ -320,4 +320,23 @@ public class TestTavolo {
 		
 		assertEquals(coperti, tavolo.getCoperti());
 	}
+	
+	
+	/* Test19
+	 * 
+	 * Testiamo il metodo calcolaCostoCoperti
+	 */
+	@Test
+	public void testCalcolaCostoCoperti() throws InvalidInputException {
+		int numeroTavolo=7;
+		int maxCoperti=5;
+		double costoCoperto = 2;
+		
+		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		
+		int coperti = 3;
+		double expected = coperti * costoCoperto;
+		
+		assertEquals(expected, tavolo.calcolaCostoCoperti(), 0);
+	}
 }
