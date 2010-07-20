@@ -56,6 +56,7 @@ public class Tavolo implements ITavolo {
 		}
 		
 		this.coperti = numCoperti;
+		this.libero = false;
 	}
 
 	@Override
