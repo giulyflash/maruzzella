@@ -45,14 +45,12 @@ public class Tavolo implements ITavolo {
 
 	@Override
 	public void setCoperti(int numCoperti) {
-		// TODO Auto-generated method stub
-
+		this.coperti = numCoperti;
 	}
 
 	@Override
 	public int getCoperti() {
-		// TODO Auto-generated method stub
-		return 0;
+		return coperti;
 	}
 
 	@Override

@@ -175,4 +175,24 @@ public class TestTavolo {
 		assertEquals(maxCoperti, tavolo.getMaxCoperti());
 		assertEquals("Costo Errato",costoCoperto,tavolo.getCostoCoperto(),0);
 	}
+	
+	
+	/* Test11
+	 * 
+	 * Testiamo il metodo setCoperti e getCoperti
+	 */
+	@Test
+	public void testSetCopertiGetCoperti() throws InvalidInputException {
+		int numeroTavolo=7;
+		int maxCoperti=5;
+		double costoCoperto = 2;
+		
+		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		
+		
+		int coperti = 3;	
+		tavolo.setCoperti(coperti);
+		
+		assertEquals(coperti, tavolo.getCoperti());
+	}
 }
