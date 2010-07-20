@@ -31,18 +31,17 @@ public class Tavolo implements ITavolo {
 		this.costoCoperto = costoCoperto;
 		
 		this.coperti = 0;
+		this.libero = true;
 	}
 
 	@Override
 	public boolean isLibero() {
-		// TODO Auto-generated method stub
-		return false;
+		return libero;
 	}
 
 	@Override
 	public void setLibero(boolean status) {
-		// TODO Auto-generated method stub
-
+		this.libero = status;
 	}
 
 	@Override
