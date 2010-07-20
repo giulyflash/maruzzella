@@ -42,6 +42,10 @@ public class Tavolo implements ITavolo {
 	@Override
 	public void setLibero(boolean status) {
 		this.libero = status;
+		
+		if (status == true) {
+			this.coperti = 0;
+		}
 	}
 
 	@Override
