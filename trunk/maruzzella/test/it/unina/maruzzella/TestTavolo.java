@@ -341,4 +341,22 @@ public class TestTavolo {
 		
 		assertEquals(expected, tavolo.calcolaCostoCoperti(), 0);
 	}
+	
+	
+	/* Test20
+	 * 
+	 * Testiamo il metodo calcolaCostoCoperti senza setCoperti
+	 */
+	@Test
+	public void testCalcolaCostoCopertiSenzaSetCoperti() throws InvalidInputException {
+		int numeroTavolo=7;
+		int maxCoperti=5;
+		double costoCoperto = 2;
+		
+		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		
+		double expected = 0;
+		
+		assertEquals(expected, tavolo.calcolaCostoCoperti(), 0);
+	}
 }
