@@ -414,4 +414,26 @@ public class TestTavolo {
 		assertEquals(true, tavolo.isLibero());
 		assertEquals(0, tavolo.getCoperti());
 	}
+	
+	
+	/* Test24
+	 * 
+	 * Testiamo il metodo isLibero con setCoperti
+	 * Ci aspettiamo che il tavolo sia occupato quando è settato il numero di coperti
+	 */
+	@Test
+	public void testIsLiberoConSetCoperti() throws InvalidInputException {
+		int numeroTavolo=7;
+		int maxCoperti=5;
+		double costoCoperto = 2;
+		
+		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		
+		tavolo.setLibero(true);
+		assertEquals(true, tavolo.isLibero());
+		
+		tavolo.setCoperti(maxCoperti);
+		assertEquals(false, tavolo.isLibero());
+	}
+	
 }
