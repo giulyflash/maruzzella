@@ -375,4 +375,21 @@ public class TestTavolo {
 		
 		assertEquals(true, tavolo.isLibero());
 	}
+	
+	
+	/* Test22
+	 * 
+	 * Testiamo il metodo isLibero con false
+	 */
+	@Test
+	public void testIsLiberoConFalse() throws InvalidInputException {
+		int numeroTavolo=7;
+		int maxCoperti=5;
+		double costoCoperto = 2;
+		
+		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		
+		tavolo.setLibero(false);
+		assertEquals(false, tavolo.isLibero());
+	}
 }
