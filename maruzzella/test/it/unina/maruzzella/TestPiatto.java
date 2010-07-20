@@ -35,18 +35,12 @@ public class TestPiatto {
 	 * Ci aspettiamo il lancio di un'eccezione
 	 */
 	
-	@Test
-	public void testCostruttorePrezzoNegativo(){
+	@Test(expected=InvalidInputException.class)
+	public void testCostruttorePrezzoNegativo() throws InvalidInputException{
 		String nome="Margherita";
 		double prezzo=-2;
 		
-		
-		try {
-			piatto= new Piatto(nome,prezzo);
-			fail("Eccezione non lanciata per inserimento prezzo minore di 0");
-		} catch (InvalidInputException e) {
-			assertEquals("Prezzo negativo", e.getMessage());
-		}
+		piatto= new Piatto(nome,prezzo);
 	}
 	
 	/* Test3
@@ -71,17 +65,12 @@ public class TestPiatto {
 	 * Test con nome vuoto
 	 */
 	
-	@Test
+	@Test(expected=InvalidInputException.class)
 	public void testCostruttoreNomeVuoto() throws Exception{
 		String nome="";
 		double prezzo=1;
 		
-		try {
-			piatto= new Piatto(nome,prezzo);
-			fail("Eccezione non lanciata per inserimento nome vuoto");
-		} catch (InvalidInputException e) {
-			assertEquals("Nome non specificato", e.getMessage());
-		}
+		piatto= new Piatto(nome,prezzo);
 		
 	}
 	
@@ -90,18 +79,12 @@ public class TestPiatto {
 	 * Test con nome null
 	 */
 	
-	@Test
+	@Test(expected=InvalidInputException.class)
 	public void testCostruttoreNomeNull() throws Exception{
 		String nome=null;
 		double prezzo=200;
 		
-		try {
-			piatto= new Piatto(nome,prezzo);
-			fail("Eccezione non lanciata per inserimento nome null");
-		} catch (InvalidInputException e) {
-			assertEquals("Nome Null", e.getMessage());
-		}
-		
+		piatto= new Piatto(nome,prezzo);
 	}
 	
 	/* Test 6
@@ -119,7 +102,6 @@ public class TestPiatto {
 		
 		assertEquals(nome, piatto.getNome());
 		assertEquals("Prezzo Errato",prezzo,piatto.getPrezzo(),0);
-		
 	}
 	
 	/* Test 7
