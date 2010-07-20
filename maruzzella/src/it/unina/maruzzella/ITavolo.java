@@ -8,7 +8,7 @@ public interface ITavolo {
 	public boolean isLibero();
 	public void setLibero(boolean status);
 	
-	public void setCoperti(int numCoperti);
+	public void setCoperti(int numCoperti) throws InvalidInputException;
 	public int getCoperti();
 	
 	public int getMaxCoperti();
