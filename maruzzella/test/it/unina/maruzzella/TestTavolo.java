@@ -75,4 +75,18 @@ public class TestTavolo {
 		assertEquals(maxCoperti, tavolo.getMaxCoperti());
 		assertEquals("Costo Errato",costoCoperto,tavolo.getCostoCoperto(),0);
 	}
+	
+	
+	/* Test5
+	 * 
+	 * Testiamo il costruttore del tavolo con maxCoperti non valido
+	 */
+	@Test(expected=InvalidInputException.class)
+	public void testCostruttoreMaxCoertiNonValido() throws InvalidInputException {
+		int numeroTavolo=7;
+		int maxCoperti=1;
+		double costoCoperto=2;
+		
+		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+	}
 }
