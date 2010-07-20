@@ -125,4 +125,54 @@ public class TestTavolo {
 		assertEquals(maxCoperti, tavolo.getMaxCoperti());
 		assertEquals("Costo Errato",costoCoperto,tavolo.getCostoCoperto(),0);
 	}
+	
+	
+	/* Test8
+	 * 
+	 * Testiamo il costruttore del tavolo con costo non valido
+	 */
+	@Test(expected=InvalidInputException.class)
+	public void testCostruttoreCostoNonValido() throws InvalidInputException {
+		int numeroTavolo=7;
+		int maxCoperti=5;
+		double costoCoperto = -0.001;
+		
+		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+	}
+	
+	
+	/* Test9
+	 * 
+	 * Testiamo il costruttore del tavolo con costo al limite
+	 */
+	@Test
+	public void testCostruttoreCostoZero() throws InvalidInputException {
+		int numeroTavolo=7;
+		int maxCoperti=5;
+		double costoCoperto = 0;
+		
+		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		
+		assertEquals(numeroTavolo, tavolo.getNumero());
+		assertEquals(maxCoperti, tavolo.getMaxCoperti());
+		assertEquals("Costo Errato",costoCoperto,tavolo.getCostoCoperto(),0);
+	}
+	
+	
+	/* Test10
+	 * 
+	 * Testiamo il costruttore del tavolo con costo al limite circa
+	 */
+	@Test
+	public void testCostruttoreCostoQuasiZero() throws InvalidInputException {
+		int numeroTavolo=7;
+		int maxCoperti=5;
+		double costoCoperto = 0.001;
+		
+		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		
+		assertEquals(numeroTavolo, tavolo.getNumero());
+		assertEquals(maxCoperti, tavolo.getMaxCoperti());
+		assertEquals("Costo Errato",costoCoperto,tavolo.getCostoCoperto(),0);
+	}
 }
