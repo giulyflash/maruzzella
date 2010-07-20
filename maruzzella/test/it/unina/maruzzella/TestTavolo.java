@@ -15,7 +15,7 @@ public class TestTavolo {
 	 */
 	@Test
 	public void testCostruttoreTavolo() throws InvalidInputException {
-		int numeroTavolo=1;
+		int numeroTavolo=7;
 		int maxCoperti=5;
 		double costoCoperto=2;
 		
@@ -57,5 +57,22 @@ public class TestTavolo {
 		assertEquals(maxCoperti, tavolo.getMaxCoperti());
 		assertEquals("Costo Errato",costoCoperto,tavolo.getCostoCoperto(),0);
 	}
+	
 
+	/* Test4
+	 * 
+	 * Testiamo il costruttore del tavolo con numero tavolo al limite+1
+	 */
+	@Test
+	public void testCostruttoreNumeroTavoloDue() throws InvalidInputException {
+		int numeroTavolo=2;
+		int maxCoperti=5;
+		double costoCoperto=2;
+		
+		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		
+		assertEquals(numeroTavolo, tavolo.getNumero());
+		assertEquals(maxCoperti, tavolo.getMaxCoperti());
+		assertEquals("Costo Errato",costoCoperto,tavolo.getCostoCoperto(),0);
+	}
 }
