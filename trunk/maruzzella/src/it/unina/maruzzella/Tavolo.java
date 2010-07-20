@@ -67,8 +67,7 @@ public class Tavolo implements ITavolo {
 
 	@Override
 	public double calcolaCostoCoperti() {
-		// TODO Auto-generated method stub
-		return 0;
+		return coperti * costoCoperto;
 	}
 
 	@Override

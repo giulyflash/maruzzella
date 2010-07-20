@@ -335,7 +335,9 @@ public class TestTavolo {
 		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		int coperti = 3;
-		double expected = coperti * costoCoperto;
+		tavolo.setCoperti(coperti);
+		
+		double expected = tavolo.getCoperti() * costoCoperto;
 		
 		assertEquals(expected, tavolo.calcolaCostoCoperti(), 0);
 	}
