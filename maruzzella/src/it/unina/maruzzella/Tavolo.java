@@ -18,6 +18,10 @@ public class Tavolo implements ITavolo {
 			throw new InvalidInputException("Numero del tavolo deve essere maggiore di 0");
 		}
 		
+		if (maxCoperti <= 1) {
+			throw new InvalidInputException("Numero coperti deve essere maggiore di 1");
+		}
+		
 		this.numero = numero;
 		this.maxCoperti = maxCoperti;
 		this.costoCoperto = costoCoperto;
