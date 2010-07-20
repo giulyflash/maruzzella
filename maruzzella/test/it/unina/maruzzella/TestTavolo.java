@@ -14,7 +14,7 @@ public class TestTavolo {
 	 * Testiamo il costruttore del tavolo con tutti gli input validi
 	 */
 	@Test
-	public void testCostruttoreTavolo() {
+	public void testCostruttoreTavolo() throws InvalidInputException {
 		int numeroTavolo=1;
 		int maxCoperti=5;
 		double costoCoperto=2;
@@ -33,7 +33,7 @@ public class TestTavolo {
 	 * Testiamo il costruttore del tavolo numero tavolo non valido
 	 */
 	@Test(expected=InvalidInputException.class)
-	public void testCostruttoreNumeroTavoloZero() {
+	public void testCostruttoreNumeroTavoloZero() throws InvalidInputException {
 		int numeroTavolo=0;
 		int maxCoperti=5;
 		double costoCoperto=2;
