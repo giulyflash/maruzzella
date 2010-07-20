@@ -397,6 +397,8 @@ public class TestTavolo {
 	/* Test23
 	 * 
 	 * Testiamo il metodo isLibero con true
+	 * Dopo aver settato lo stato del tavolo a libero, ci aspettiamo che
+	 * il numero di coperti sia uguale a zero
 	 */
 	@Test
 	public void testIsLiberoConTrue() throws InvalidInputException {
@@ -406,7 +408,10 @@ public class TestTavolo {
 		
 		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
+		tavolo.setCoperti(maxCoperti);
+		
 		tavolo.setLibero(true);
 		assertEquals(true, tavolo.isLibero());
+		assertEquals(0, tavolo.getCoperti());
 	}
 }
