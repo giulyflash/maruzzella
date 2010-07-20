@@ -25,9 +25,6 @@ public class TestTavolo {
 		assertEquals(numeroTavolo, tavolo.getNumero());
 		assertEquals(maxCoperti, tavolo.getMaxCoperti());
 		assertEquals("Costo Errato",costoCoperto,tavolo.getCostoCoperto(),0);
-		
-		
-		
 	}
 
 }

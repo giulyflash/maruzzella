@@ -44,8 +44,7 @@ public class Tavolo implements ITavolo {
 
 	@Override
 	public int getMaxCoperti() {
-		// TODO Auto-generated method stub
-		return 0;
+		return maxCoperti;
 	}
 
 	@Override
@@ -56,14 +55,12 @@ public class Tavolo implements ITavolo {
 
 	@Override
 	public int getNumero() {
-		// TODO Auto-generated method stub
-		return 0;
+		return numero;
 	}
 
 	@Override
 	public double getCostoCoperto() {
-		// TODO Auto-generated method stub
-		return 0;
+		return costoCoperto;
 	}
 
 }
