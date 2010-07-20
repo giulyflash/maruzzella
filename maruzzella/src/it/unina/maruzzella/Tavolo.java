@@ -29,6 +29,8 @@ public class Tavolo implements ITavolo {
 		this.numero = numero;
 		this.maxCoperti = maxCoperti;
 		this.costoCoperto = costoCoperto;
+		
+		this.coperti = 0;
 	}
 
 	@Override
@@ -46,7 +48,7 @@ public class Tavolo implements ITavolo {
 	@Override
 	public void setCoperti(int numCoperti) throws InvalidInputException {
 		
-		if (numCoperti <= 0) {
+		if (numCoperti <= 0  || numCoperti > maxCoperti) {
 			throw new InvalidInputException("numCoperti deve essere maggiore di 0");
 		}
 		
