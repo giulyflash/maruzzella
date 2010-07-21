@@ -26,5 +26,5 @@ public interface IOrdinazione {
 	//ritorna il numero dei piatti ordinati
 	//INPUT: int:i = index del piatto
 	//OUTPUT: iPiatto
-	public IPiatto getPiattoOrdinato(int i);
+	public IPiatto getPiattoOrdinato(int i) throws InvalidInputException;
 }
