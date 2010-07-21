@@ -186,11 +186,36 @@ public class TestOrdinazione {
 		IOrdinazione ordinazione = new Ordinazione(tavolo);
 		double costoCoperti=10.00;
 		
-		expect(tavolo.getCostoCoperto()).andReturn(costoCoperti);
+		expect(tavolo.calcolaCostoCoperti()).andReturn(costoCoperti);
 		
+		replay(tavolo);
 		assertEquals("Conto Errato",costoCoperti, ordinazione.calcolaConto(),0);
-		
 		verify(tavolo);
+		
+	}
+	
+	/**Test12
+	 * 
+	 * test calcolaConto con un Piatto 
+	 * Ci aspettiamo solo costo coperti
+	 */
+	
+	@Test
+	public void testCalcolaContoUnOrdine() throws InvalidInputException{
+		ITavolo tavolo= createMock(Tavolo.class);
+		IPiatto piatto = createMock(Piatto.class);
+		
+		IOrdinazione ordinazione = new Ordinazione(tavolo);
+		double costoCoperti=10.00;
+		double prezzoPiatto=10;
+		
+		expect(tavolo.calcolaCostoCoperti()).andReturn(costoCoperti);
+		expect(piatto.getPrezzo()).andReturn(prezzoPiatto);
+		
+		replay(tavolo,piatto);
+		assertEquals("Conto Errato",costoCoperti+prezzoPiatto, ordinazione.calcolaConto(),0);
+		verify(tavolo,piatto);
+		
 	}
 	
 	
