@@ -21,4 +21,10 @@ public interface IOrdinazione {
 	//INPUT: none
 	//OUTPUT: int
 	public int getNPiattiOrdinati();
+	
+	//getPiattoOrdinato
+	//ritorna il numero dei piatti ordinati
+	//INPUT: int:i = index del piatto
+	//OUTPUT: iPiatto
+	public IPiatto getPiattoOrdinato(int i);
 }

@@ -65,4 +65,41 @@ public class TestOrdinazione {
 		assertEquals(1, ordinazione.getNPiattiOrdinati());
 	}
 	
+	/**Test5
+	 * 
+	 * test getNPiattiOrdinati con 2 ordinazioni
+	 */
+	
+	@Test
+	public void testGetNPiattiOrdinatiDueOrdinazioni() throws InvalidInputException{
+		ITavolo tavolo= createMock(Tavolo.class);
+		IPiatto piatto1 = createMock(Piatto.class);
+		IPiatto piatto2 = createMock(Piatto.class);
+		
+		IOrdinazione ordinazione = new Ordinazione(tavolo);
+		
+		ordinazione.ordinaPiatto(piatto1);
+		ordinazione.ordinaPiatto(piatto2);
+		
+		
+		assertEquals(2, ordinazione.getNPiattiOrdinati());
+	}
+	
+	/**Test6
+	 * 
+	 * test getPiattoOrdinato con 1 ordinazioni
+	 */
+	
+	@Test
+	public void testGetPiattoOrdinatoUnOrdinazione() throws InvalidInputException{
+		ITavolo tavolo= createMock(Tavolo.class);
+		IPiatto piatto1 = createMock(Piatto.class);
+		
+		IOrdinazione ordinazione = new Ordinazione(tavolo);
+		
+		ordinazione.ordinaPiatto(piatto1);
+		
+		assertSame(piatto1, ordinazione.getPiattoOrdinato(1));
+	}
+	
 }
