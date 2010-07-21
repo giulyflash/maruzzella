@@ -13,7 +13,7 @@ public interface IOrdinazione {
 	//Add an IPiatto implementation Istance to the Ordinazione
 	//INPUT: IPiatto implementation istance
 	//OUTPUT: void
-	public void ordinaPiatto(IPiatto piattoOrdinato);
+	public void ordinaPiatto(IPiatto piattoOrdinato) throws InvalidInputException;
 	
 	
 	//getNPiattiOrdinati

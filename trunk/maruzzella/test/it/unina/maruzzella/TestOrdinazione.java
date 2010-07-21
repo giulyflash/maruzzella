@@ -174,4 +174,25 @@ public class TestOrdinazione {
 		ordinazione.ordinaPiatto(null);
 	}
 	
+	/**Test11
+	 * 
+	 * test calcolaConto senza Ordinazione
+	 * Ci aspettiamo solo costo coperti
+	 */
+	
+	@Test
+	public void testCalcolaContoNoOrdini() throws InvalidInputException{
+		ITavolo tavolo= createMock(Tavolo.class);
+		IOrdinazione ordinazione = new Ordinazione(tavolo);
+		double costoCoperti=10.00;
+		
+		expect(tavolo.getCostoCoperto()).andReturn(costoCoperti);
+		
+		assertEquals("Conto Errato",costoCoperti, ordinazione.calcolaConto(),0);
+		
+		verify(tavolo);
+	}
+	
+	
+	
 }

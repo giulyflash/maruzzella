@@ -21,8 +21,11 @@ public class Ordinazione implements IOrdinazione {
 	}
 
 	@Override
-	public void ordinaPiatto(IPiatto piattoOrdinato) {
-		// TODO Auto-generated method stub
+	public void ordinaPiatto(IPiatto piattoOrdinato) throws InvalidInputException{
+		
+		if (piattoOrdinato==null)
+			throw new InvalidInputException("Piatto NULL");
+		
 		piatti.add(piattoOrdinato);
 
 	}
