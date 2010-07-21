@@ -13,5 +13,12 @@ public interface IOrdinazione {
 	//Add an IPiatto implementation Istance to the Ordinazione
 	//INPUT: IPiatto implementation istance
 	//OUTPUT: void
-	public void ordinaPiatto(IPiatto piatto_ordinato);
+	public void ordinaPiatto(IPiatto piattoOrdinato);
+	
+	
+	//getNPiattiOrdinati
+	//ritorna il numero dei piatti ordinati
+	//INPUT: none
+	//OUTPUT: int
+	public int getNPiattiOrdinati();
 }
