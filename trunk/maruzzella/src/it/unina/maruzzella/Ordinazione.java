@@ -36,7 +36,7 @@ public class Ordinazione implements IOrdinazione {
 	@Override
 	public IPiatto getPiattoOrdinato(int i) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.piatti.get(i-1);
 	}
 
 }
