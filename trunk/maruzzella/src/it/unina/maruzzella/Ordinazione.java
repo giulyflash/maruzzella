@@ -33,4 +33,10 @@ public class Ordinazione implements IOrdinazione {
 		return piatti.size();
 	}
 
+	@Override
+	public IPiatto getPiattoOrdinato(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
