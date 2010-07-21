@@ -34,8 +34,11 @@ public class Ordinazione implements IOrdinazione {
 	}
 
 	@Override
-	public IPiatto getPiattoOrdinato(int i) {
-		// TODO Auto-generated method stub
+	public IPiatto getPiattoOrdinato(int i) throws InvalidInputException{
+		
+		if (i<1)
+			throw new InvalidInputException("Indice piatto non valido");
+		
 		return this.piatti.get(i-1);
 	}
 

@@ -141,4 +141,23 @@ public class TestOrdinazione {
 		assertSame(piatto1, ordinazione.getPiattoOrdinato(0));
 	}
 	
+	/**Test9
+	 * 
+	 * test getPiattoOrdinato richiedendo numero piatto superiore a num Ordinazioni
+	 */
+	
+	@Test(expected=InvalidInputException.class)
+	public void testGetPiattoOrdinatoChiedoNumEccessivo() throws InvalidInputException{
+		ITavolo tavolo= createMock(Tavolo.class);
+		IPiatto piatto1 = createMock(Piatto.class);
+		IPiatto piatto2 = createMock(Piatto.class);
+		
+		IOrdinazione ordinazione = new Ordinazione(tavolo);
+		
+		ordinazione.ordinaPiatto(piatto1);
+		ordinazione.ordinaPiatto(piatto2);
+		
+		assertSame(piatto1, ordinazione.getPiattoOrdinato(3));
+	}
+	
 }
