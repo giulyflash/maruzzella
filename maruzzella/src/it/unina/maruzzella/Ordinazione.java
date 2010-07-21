@@ -7,8 +7,9 @@ public class Ordinazione implements IOrdinazione {
 	private List<IPiatto> piatti;
 	
 	
-	public Ordinazione(ITavolo tavolo_associato){
-		
+	public Ordinazione(ITavolo tavoloAssociato)throws InvalidInputException{
+		if (tavoloAssociato==null)
+			throw new InvalidInputException("Tavolo NULL");
 	}
 	
 	@Override
@@ -18,9 +19,15 @@ public class Ordinazione implements IOrdinazione {
 	}
 
 	@Override
-	public void ordinaPiatto(IPiatto piatto_ordinato) {
+	public void ordinaPiatto(IPiatto piattoOrdinato) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public int getNPiattiOrdinati() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
