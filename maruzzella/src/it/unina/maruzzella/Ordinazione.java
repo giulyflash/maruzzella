@@ -53,7 +53,7 @@ public class Ordinazione implements IOrdinazione {
 	
 	@Override
 	public ITavolo getTavolo(){
-		return null;
+		return this.tavolo;
 	}
 
 }
