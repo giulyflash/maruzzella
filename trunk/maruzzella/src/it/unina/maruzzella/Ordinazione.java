@@ -10,6 +10,8 @@ public class Ordinazione implements IOrdinazione {
 	public Ordinazione(ITavolo tavoloAssociato)throws InvalidInputException{
 		if (tavoloAssociato==null)
 			throw new InvalidInputException("Tavolo NULL");
+		
+		piatti= new ArrayList<IPiatto>();
 	}
 	
 	@Override
@@ -21,13 +23,14 @@ public class Ordinazione implements IOrdinazione {
 	@Override
 	public void ordinaPiatto(IPiatto piattoOrdinato) {
 		// TODO Auto-generated method stub
+		piatti.add(piattoOrdinato);
 
 	}
 
 	@Override
 	public int getNPiattiOrdinati() {
 		// TODO Auto-generated method stub
-		return 0;
+		return piatti.size();
 	}
 
 }
