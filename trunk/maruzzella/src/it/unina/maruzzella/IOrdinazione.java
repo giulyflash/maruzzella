@@ -27,4 +27,7 @@ public interface IOrdinazione {
 	//INPUT: int:i = index del piatto
 	//OUTPUT: iPiatto
 	public IPiatto getPiattoOrdinato(int i) throws InvalidInputException;
+
+
+	public ITavolo getTavolo();
 }

@@ -204,10 +204,12 @@ public class TestOrdinazione {
 	public void testCalcolaContoUnOrdine() throws InvalidInputException{
 		ITavolo tavolo= createMock(Tavolo.class);
 		IPiatto piatto = createMock(Piatto.class);
-		
-		IOrdinazione ordinazione = new Ordinazione(tavolo);
 		double costoCoperti=10.00;
 		double prezzoPiatto=10;
+		
+		
+		IOrdinazione ordinazione = new Ordinazione(tavolo);
+		ordinazione.ordinaPiatto(piatto);
 		
 		expect(tavolo.calcolaCostoCoperti()).andReturn(costoCoperti);
 		expect(piatto.getPrezzo()).andReturn(prezzoPiatto);
@@ -218,6 +220,51 @@ public class TestOrdinazione {
 		
 	}
 	
+	/**Test13
+	 * 
+	 * test calcolaConto con 2 Piatti 
+	 * Ci aspettiamo solo costo coperti
+	 */
+	
+	@Test
+	public void testCalcolaContoDueOrdini() throws InvalidInputException{
+		ITavolo tavolo= createMock(Tavolo.class);
+		IPiatto piatto1 = createMock(Piatto.class);
+		IPiatto piatto2 = createMock(Piatto.class);
+		
+		double costoCoperti=10.00;
+		double prezzoPiatto1=10;
+		double prezzoPiatto2=15;
+		
+		
+		IOrdinazione ordinazione = new Ordinazione(tavolo);
+		ordinazione.ordinaPiatto(piatto1);
+		ordinazione.ordinaPiatto(piatto2);
+		
+		expect(tavolo.calcolaCostoCoperti()).andReturn(costoCoperti);
+		expect(piatto1.getPrezzo()).andReturn(prezzoPiatto1);
+		expect(piatto2.getPrezzo()).andReturn(prezzoPiatto2);
+		
+		replay(tavolo,piatto1,piatto2);
+		assertEquals("Conto Errato",costoCoperti+prezzoPiatto1+prezzoPiatto2, ordinazione.calcolaConto(),0);
+		verify(tavolo,piatto1,piatto2);
+		
+	}
+	
+	
+	/**Test14
+	 * 
+	 * test getNPiattiOrdinati senza Ordinazioni
+	 */
+	
+	@Test
+	public void testGetTavolo() throws InvalidInputException{
+		ITavolo tavolo= createMock(Tavolo.class);
+		
+		IOrdinazione ordinazione = new Ordinazione(tavolo);
+		
+		assertSame(tavolo, ordinazione.getTavolo());
+	}
 	
 	
 }
