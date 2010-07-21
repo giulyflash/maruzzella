@@ -12,12 +12,13 @@ public class Ordinazione implements IOrdinazione {
 			throw new InvalidInputException("Tavolo NULL");
 		
 		piatti= new ArrayList<IPiatto>();
+		tavolo=tavoloAssociato;
 	}
 	
 	@Override
 	public double calcolaConto() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return tavolo.calcolaCostoCoperti();
 	}
 
 	@Override
