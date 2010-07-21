@@ -36,7 +36,7 @@ public class Ordinazione implements IOrdinazione {
 	@Override
 	public IPiatto getPiattoOrdinato(int i) throws InvalidInputException{
 		
-		if (i<1)
+		if ( (i<1) || (i>piatti.size()) )
 			throw new InvalidInputException("Indice piatto non valido");
 		
 		return this.piatti.get(i-1);

@@ -160,4 +160,18 @@ public class TestOrdinazione {
 		assertSame(piatto1, ordinazione.getPiattoOrdinato(3));
 	}
 	
+	/**Test10
+	 * 
+	 * test ordinaPiatto, passando parametro=null
+	 * Ci aspettiamo eccezione
+	 */
+	
+	@Test(expected=InvalidInputException.class)
+	public void testOrdinaPiattoConNull() throws InvalidInputException{
+		ITavolo tavolo= createMock(Tavolo.class);
+		IOrdinazione ordinazione = new Ordinazione(tavolo);
+		
+		ordinazione.ordinaPiatto(null);
+	}
+	
 }
