@@ -17,8 +17,13 @@ public class Ordinazione implements IOrdinazione {
 	
 	@Override
 	public double calcolaConto() {
+		double conto= tavolo.calcolaCostoCoperti();
 		
-		return tavolo.calcolaCostoCoperti();
+		for (int i=0; i<piatti.size();i++)
+			conto+=piatti.get(i).getPrezzo();
+		
+		
+		return conto;
 	}
 
 	@Override
@@ -44,6 +49,11 @@ public class Ordinazione implements IOrdinazione {
 			throw new InvalidInputException("Indice piatto non valido");
 		
 		return this.piatti.get(i-1);
+	}
+	
+	@Override
+	public ITavolo getTavolo(){
+		return null;
 	}
 
 }
