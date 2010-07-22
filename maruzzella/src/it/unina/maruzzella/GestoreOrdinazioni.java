@@ -6,11 +6,13 @@ import java.util.List;
 public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 	
 	ITavoloCreator tavoloCreator;
+	IOrdinazioneCreator ordinazioneCreator;
 	List<ITavolo> tavoli;
 	int prossimoNumero;
 	
 	public GestoreOrdinazioni(){
 		tavoloCreator = new TavoloCreator();
+		ordinazioneCreator = new OrdinazioneCreator();
 		tavoli = new ArrayList<ITavolo>();
 		prossimoNumero = 0;
 	}
@@ -18,6 +20,11 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 	@Override
 	public void setTavoloCreator(ITavoloCreator newTavoloCreator) {
 		tavoloCreator = newTavoloCreator;
+	}
+	
+	@Override
+	public void setOrdinazioneCreator(IOrdinazioneCreator newOrdinazioneCreator) {
+		ordinazioneCreator = newOrdinazioneCreator;
 	}
 
 	@Override

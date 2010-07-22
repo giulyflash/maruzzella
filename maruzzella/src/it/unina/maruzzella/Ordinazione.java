@@ -7,7 +7,7 @@ public class Ordinazione implements IOrdinazione {
 	private List<IPiatto> piatti;
 	
 	
-	public Ordinazione(ITavolo tavoloAssociato)throws InvalidInputException{
+	public Ordinazione(ITavolo tavoloAssociato) throws InvalidInputException{
 		if (tavoloAssociato==null)
 			throw new InvalidInputException("Tavolo NULL");
 		
