@@ -2,6 +2,7 @@ package it.unina.maruzzella;
 
 import static org.junit.Assert.*;
 
+import org.easymock.EasyMock;
 import org.junit.Test;
 
 import static org.easymock.EasyMock.*;
@@ -43,12 +44,16 @@ public class TestGestoreOrdinazioni {
 		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
 		
 		int maxCoperti = 7;
-		int costoCoperto = 2;
+		double costoCoperto = 2;
+		
+		ITavolo tavolo= createMock(Tavolo.class);
+		
+		ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		expect(tavoloCreator.creaTavolo(EasyMock.geq(1),EasyMock.eq(maxCoperti), EasyMock.eq(costoCoperto))).andReturn(tavolo);
+		gestOrdinazioni.setTavoloCreator(tavoloCreator);
 		
 		gestOrdinazioni.aggiungiTavolo(maxCoperti, costoCoperto);
 		
 		assertEquals(1, gestOrdinazioni.getNTavoli());
-		
-		fail("questo unit test non isola la classe GestoreOrdinazioni");
 	}
 }

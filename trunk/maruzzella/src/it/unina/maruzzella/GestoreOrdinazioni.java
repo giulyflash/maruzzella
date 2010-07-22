@@ -3,14 +3,21 @@ package it.unina.maruzzella;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GestoreOrdinazioni implements IOrdinazione, IGestoreOrdinazioni {
+public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 	
+	ITavoloCreator tavoloCreator;
 	List<ITavolo> tavoli;
 	int prossimoNumero;
 	
 	public GestoreOrdinazioni(){
+		tavoloCreator = new TavoloCreator();
 		tavoli = new ArrayList<ITavolo>();
 		prossimoNumero = 0;
+	}
+	
+	@Override
+	public void setTavoloCreator(ITavoloCreator newTavoloCreator) {
+		tavoloCreator = newTavoloCreator;
 	}
 
 	@Override
@@ -43,36 +50,4 @@ public class GestoreOrdinazioni implements IOrdinazione, IGestoreOrdinazioni {
 	public int getNTavoli() {
 		return tavoli.size();
 	}
-
-	@Override
-	public double calcolaConto() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void ordinaPiatto(IPiatto piattoOrdinato)
-			throws InvalidInputException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getNPiattiOrdinati() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public IPiatto getPiattoOrdinato(int i) throws InvalidInputException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ITavolo getTavolo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
