@@ -39,8 +39,9 @@ public interface IGestoreOrdinazioni {
 	 * 
 	 * @param maxCoperti numero massimo di coperti per il tavolo inserito
 	 * @param costoCoperto costo di ciascun coperto
+	 * @throws InvalidInputException 
 	 */
-	public void aggiungiTavolo(int maxCoperti, double costoCoperto);
+	public void aggiungiTavolo(int maxCoperti, double costoCoperto) throws InvalidInputException;
 	
 	public int getNTavoli();
 

@@ -1,10 +1,16 @@
 package it.unina.maruzzella;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GestoreOrdinazioni implements IOrdinazione, IGestoreOrdinazioni {
 	
+	List<ITavolo> tavoli;
+	int prossimoNumero;
 	
 	public GestoreOrdinazioni(){
-		
+		tavoli = new ArrayList<ITavolo>();
+		prossimoNumero = 0;
 	}
 
 	@Override
@@ -27,15 +33,15 @@ public class GestoreOrdinazioni implements IOrdinazione, IGestoreOrdinazioni {
 	}
 
 	@Override
-	public void aggiungiTavolo(int maxCoperti, double costoCoperto) {
-		// TODO Auto-generated method stub
-
+	public void aggiungiTavolo(int maxCoperti, double costoCoperto) throws InvalidInputException {
+		prossimoNumero++;
+		ITavolo tavolo = new Tavolo(prossimoNumero, maxCoperti, costoCoperto);
+		tavoli.add(tavolo);
 	}
 
 	@Override
 	public int getNTavoli() {
-		// TODO Auto-generated method stub
-		return 0;
+		return tavoli.size();
 	}
 
 	@Override
