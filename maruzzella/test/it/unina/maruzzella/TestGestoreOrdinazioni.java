@@ -21,7 +21,6 @@ public class TestGestoreOrdinazioni {
 		assertNotNull(gestOrdinazioni);
 	}
 	
-	
 	/**Test2
 	 * 
 	 * Semplice test del metodo getNTavoli()
@@ -34,4 +33,22 @@ public class TestGestoreOrdinazioni {
 		assertEquals(0, gestOrdinazioni.getNTavoli());
 	}
 
+	/**Test3
+	 * 
+	 * Metodo getNTavoli(), inserendo un solo tavolo
+	 */
+	@Test
+	public void testGetNTavoliUnTavolo()throws InvalidInputException{
+		
+		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		
+		int maxCoperti = 7;
+		int costoCoperto = 2;
+		
+		gestOrdinazioni.aggiungiTavolo(maxCoperti, costoCoperto);
+		
+		assertEquals(1, gestOrdinazioni.getNTavoli());
+		
+		fail("questo unit test non isola la classe GestoreOrdinazioni");
+	}
 }
