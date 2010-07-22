@@ -45,5 +45,8 @@ public interface IGestoreOrdinazioni {
 	
 	public int getNTavoli();
 
+
+	void setTavoloCreator(ITavoloCreator newTavoloCreator);
+
 	
 }
