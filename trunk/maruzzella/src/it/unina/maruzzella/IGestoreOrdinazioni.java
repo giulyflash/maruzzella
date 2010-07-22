@@ -48,5 +48,8 @@ public interface IGestoreOrdinazioni {
 
 	void setTavoloCreator(ITavoloCreator newTavoloCreator);
 
+
+	void setOrdinazioneCreator(IOrdinazioneCreator newOrdinazioneCreator);
+
 	
 }

@@ -2,6 +2,8 @@ package it.unina.maruzzella;
 
 import static org.junit.Assert.*;
 
+import java.beans.Expression;
+
 import org.easymock.EasyMock;
 import org.junit.Test;
 
@@ -36,7 +38,8 @@ public class TestGestoreOrdinazioni {
 
 	/**Test3
 	 * 
-	 * Metodo getNTavoli(), inserendo un solo tavolo
+	 * Metodo getNTavoli(), inserendo un solo tavolo.
+	 * In questo test e' previsto anche il test del metodo aggiungiTavolo.
 	 */
 	@Test
 	public void testGetNTavoliUnTavolo()throws InvalidInputException{
@@ -62,15 +65,16 @@ public class TestGestoreOrdinazioni {
 	
 	/**Test4
 	 * 
-	 * Metodo getNTavoli(), inserendo due tavoli
+	 * Metodo getNTavoli(), inserendo due tavoli.
+	 * In questo test e' previsto anche il test del metodo aggiungiTavolo.
 	 */
 	@Test
 	public void testGetNTavoliDueTavoli()throws InvalidInputException{
 		
 		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
 		
-		int maxCoperti1 = 7;
-		double costoCoperto1 = 2;
+		int maxCoperti1 = 4;
+		double costoCoperto1 = 1.5;
 		int maxCoperti2 = 2;
 		double costoCoperto2 = 0;
 		
@@ -88,5 +92,40 @@ public class TestGestoreOrdinazioni {
 		verify(tavolo1, tavolo2, tavoloCreator);
 		
 		assertEquals(2, gestOrdinazioni.getNTavoli());
+	}
+	
+	
+	/**Test5
+	 * 
+	 * Semplice test per il metodo creaOrdinazione
+	 */
+	@Test
+	public void testCreaOrdinazioneUnaOrdinazioneUnTavolo()throws InvalidInputException{
+		
+		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		
+		int numeroTavolo = 1;
+		int maxCoperti = 7;
+		double costoCoperto = 2;
+		
+		ITavolo tavolo = createMock(Tavolo.class);
+		IOrdinazione ordinazione = createMock(Ordinazione.class);
+		ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
+		
+		expect(tavoloCreator.creaTavolo(EasyMock.geq(1),EasyMock.eq(maxCoperti), EasyMock.eq(costoCoperto))).andReturn(tavolo);
+		expect(ordinazioneCreator.creaOrdinazione(tavolo)).andReturn(ordinazione);
+		expect(tavolo.isLibero()).andReturn(true);
+		expect(tavolo.getMaxCoperti()).andReturn(maxCoperti);
+		
+		gestOrdinazioni.setTavoloCreator(tavoloCreator);
+		gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
+		
+		replay(tavolo, tavoloCreator);
+		gestOrdinazioni.aggiungiTavolo(maxCoperti, costoCoperto);
+		int numeroTavoloRestituito = gestOrdinazioni.creaOrdinazione(maxCoperti);
+		verify(tavolo, tavoloCreator);
+		
+		assertEquals(numeroTavolo, numeroTavoloRestituito);
 	}
 }
