@@ -20,5 +20,18 @@ public class TestGestoreOrdinazioni {
 		
 		assertNotNull(gestOrdinazioni);
 	}
+	
+	
+	/**Test2
+	 * 
+	 * Semplice test del metodo getNTavoli()
+	 */
+	@Test
+	public void testGetNTavoliSenzaTavoli()throws InvalidInputException{
+		
+		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		
+		assertEquals(0, gestOrdinazioni.getNTavoli());
+	}
 
 }
