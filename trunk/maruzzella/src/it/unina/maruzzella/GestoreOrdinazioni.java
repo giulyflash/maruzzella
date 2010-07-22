@@ -42,7 +42,7 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 	@Override
 	public void aggiungiTavolo(int maxCoperti, double costoCoperto) throws InvalidInputException {
 		prossimoNumero++;
-		ITavolo tavolo = new Tavolo(prossimoNumero, maxCoperti, costoCoperto);
+		ITavolo tavolo = tavoloCreator.creaTavolo(prossimoNumero, maxCoperti, costoCoperto);
 		tavoli.add(tavolo);
 	}
 
