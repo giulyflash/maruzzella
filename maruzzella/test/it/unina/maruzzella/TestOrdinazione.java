@@ -30,6 +30,7 @@ public class TestOrdinazione {
 	
 	@Test(expected=InvalidInputException.class)
 	public void testCostruttoreConNull() throws InvalidInputException{
+		@SuppressWarnings("unused")
 		IOrdinazione ordinazione = new Ordinazione(null);
 	}
 	
