@@ -334,23 +334,65 @@ public class TestGestoreOrdinazioni {
 		ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
 		IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
 		
-
-	
 		
 		gestOrdinazioni.setTavoloCreator(tavoloCreator);
 		gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
 		
 		replay(tavolo, tavoloCreator);
 
-		
-
 		int numeroTavoloRestituito = gestOrdinazioni.creaOrdinazione(maxCoperti);
 		verify(tavolo, tavoloCreator);
-		
 		
 		//0=> Nessun tavolo associato
 		assertEquals(0, numeroTavoloRestituito);
 	}
 	
+	/**Test10
+	 * 
+	 * Semplice test per il metodo aggiungiPiatto
+	 */
+	@Test
+	public void testAddPiattoUnaOrdinazione()throws InvalidInputException{
+		
+		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		
+		int numeroTavolo = 1;
+		int maxCoperti = 7;
+		double costoCoperto = 2;
+		String nomePiatto="Maruzze con la spina";
+		double costoPiatto=10.00;
+		
+		
+		ITavolo tavolo = createMock(Tavolo.class);
+		IOrdinazione ordinazione = createMock(Ordinazione.class);
+		ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
+		
+		
+		//Record and playback
+		expect(tavoloCreator.creaTavolo(EasyMock.geq(1),EasyMock.eq(maxCoperti), EasyMock.eq(costoCoperto))).andReturn(tavolo);
+		expect(tavolo.isLibero()).andReturn(true);
+		expect(tavolo.getMaxCoperti()).andReturn(maxCoperti);
+		tavolo.setCoperti(maxCoperti);
+		expect(ordinazioneCreator.creaOrdinazione(tavolo)).andReturn(ordinazione);
+		expect(tavolo.getNumero()).andReturn(numeroTavolo);
+		//ord creata
+		
+		//ord un piatto
+		
+		
+		
+		gestOrdinazioni.setTavoloCreator(tavoloCreator);
+		gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
+		
+		replay(tavolo, tavoloCreator);
+		//end
+		
+		gestOrdinazioni.aggiungiTavolo(maxCoperti, costoCoperto);
+		int numeroTavoloRestituito = gestOrdinazioni.creaOrdinazione(maxCoperti);
+		verify(tavolo, tavoloCreator);
+		
+		assertEquals(numeroTavolo, numeroTavoloRestituito);
+	}
 }
 
