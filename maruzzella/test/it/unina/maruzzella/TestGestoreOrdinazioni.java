@@ -852,7 +852,7 @@ public class TestGestoreOrdinazioni {
 		  int tavoloRichiesto2=2;
 		  
 		  int numeroTavolo1 = 1;
-		  int maxCoperti1 = 9;
+		  int maxCoperti1 = 4;
 		  double costoCoperto1 = 3.5;
 		  
 		  int numeroTavolo2 = 2;
@@ -862,7 +862,7 @@ public class TestGestoreOrdinazioni {
 		  String nomePiatto1 = "Tagliatelle di don Giovanni";
 		  double prezzoPiatto1 = 99.99;
 		  
-		  String nomePiatto2 = "Penne alla mammà";
+		  String nomePiatto2 = "Penne alla mamm";
 		  double prezzoPiatto2 = 7.5;
 		  
 		  double contoAspettato1 = prezzoPiatto1 + (maxCoperti1 * costoCoperto1);
@@ -880,18 +880,17 @@ public class TestGestoreOrdinazioni {
 		  expect(tavoloCreator.creaTavolo(numeroTavolo1,maxCoperti1,costoCoperto1)).andReturn(tavolo1);
 		  expect(tavoloCreator.creaTavolo(numeroTavolo2,maxCoperti2,costoCoperto2)).andReturn(tavolo2);
 		  expect(tavolo1.isLibero()).andReturn(true).times(2);
-		  expect(tavolo2.isLibero()).andReturn(true).times(2);
+		  expect(tavolo2.isLibero()).andReturn(true).times(1);
 		  expect(tavolo1.getMaxCoperti()).andReturn(maxCoperti1).times(2);
-		  expect(tavolo2.getMaxCoperti()).andReturn(maxCoperti2).times(2);
-		  tavolo1.setCoperti(maxCoperti1);
-		  tavolo2.setCoperti(maxCoperti2);
+		  expect(tavolo2.getMaxCoperti()).andReturn(maxCoperti2).times(1);
 		  expect(ordinazioneCreator.creaOrdinazione(tavolo1)).andReturn(ordinazione1);
 		  expect(ordinazioneCreator.creaOrdinazione(tavolo2)).andReturn(ordinazione2);
-		  expect(tavolo1.getNumero()).andReturn(numeroTavolo1);
-		  expect(tavolo2.getNumero()).andReturn(numeroTavolo2);
-		  expect(ordinazione1.getTavolo()).andReturn(tavolo1).times(2);
+		  tavolo1.setCoperti(maxCoperti1);
+		  tavolo2.setCoperti(maxCoperti2);
+		  expect(tavolo1.getNumero()).andReturn(numeroTavolo1).times(4);
+		  expect(tavolo2.getNumero()).andReturn(numeroTavolo2).times(3);
+		  expect(ordinazione1.getTavolo()).andReturn(tavolo1).times(3);
 		  expect(ordinazione2.getTavolo()).andReturn(tavolo2).times(2);
-		  
 		  ordinazione1.ordinaPiatto((IPiatto) and(anyObject(), eq(new Piatto(nomePiatto1, prezzoPiatto1))));
 		  ordinazione2.ordinaPiatto((IPiatto) and(anyObject(), eq(new Piatto(nomePiatto2, prezzoPiatto2))));
 		  expect(ordinazione1.calcolaConto()).andReturn(contoAspettato1);
