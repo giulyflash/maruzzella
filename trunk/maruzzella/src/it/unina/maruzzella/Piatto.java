@@ -1,5 +1,7 @@
 package it.unina.maruzzella;
 
+
+
 public class Piatto implements IPiatto {
 	private String nome;
 	private double prezzo;
@@ -9,12 +11,12 @@ public class Piatto implements IPiatto {
 	public Piatto(String nome, double prezzo) throws InvalidInputException{
 		super();
 		
-		//Controllo se prezzo =>0
+		//Controllo se prezzo >= 0
 		
 		if (prezzo<0)
 			throw new InvalidInputException("Prezzo negativo");
 		
-		//Controllo se nome è invalido (vuoto o null)
+		//Controllo se nome e' invalido (vuoto o null)
 		if (nome==null)
 			throw new InvalidInputException("Nome Null");
 		if (nome.length()<=0)
@@ -28,7 +30,6 @@ public class Piatto implements IPiatto {
 
 	@Override
 	public String getNome() {
-		// TODO Auto-generated method stub
 		return this.nome;
 	}
 
@@ -36,6 +37,23 @@ public class Piatto implements IPiatto {
 	public double getPrezzo() {
 		// TODO Auto-generated method stub
 		return this.prezzo;
+	}
+	
+
+	public boolean equals(Object aPiatto) {
+		
+		if (aPiatto == null)
+			return false;
+		
+		if (this == aPiatto)
+			return true;
+		
+		if (this.getClass() != aPiatto.getClass())
+			return false;
+
+		IPiatto piattoDaControllare = (IPiatto) aPiatto;
+		return ( (this.getNome().equals(piattoDaControllare.getNome())) &&
+				 (this.getPrezzo() == piattoDaControllare.getPrezzo()));
 	}
 	
 }

@@ -70,7 +70,7 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 		
 		IOrdinazione ordTmp= getOrdinazioneAttiva(numTavolo);
 		
-		if (ordTmp==null)//Il tavolo specificato è libero
+		if (ordTmp==null) // Il tavolo specificato e' libero
 			throw new InvalidInputException("Piatto Ordinato per un tavolo libero");
 		else{
 			IPiatto piattoOrdinato=new Piatto(nomePiatto, prezzoPiatto);
@@ -94,9 +94,10 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 		IOrdinazione ordTmp = getOrdinazioneAttiva(numTavolo);
 		if (ordTmp==null)//Tavolo specificato libero
 			throw new InvalidInputException("Chiesto conto per un tavolo libero");
-		else
+		else {
 			contoOut=ordTmp.calcolaConto();
-		
+			ordinazioni.remove(ordTmp);
+		}
 		return contoOut;	
 	}
 
@@ -119,26 +120,10 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 	 * @param numTavolo
 	 * @return
 	 */
-	
 	private IOrdinazione getOrdinazioneAttiva(int numTavolo){
 		
 		if ( (numTavolo==0) || (numTavolo>tavoli.size()) )
 			return null;
-		
-		
-		
-		//Primo controllo per ottimizzazione
-		//Utilizzo la proprietà di accesso diretta dell'ArrayList
-		//in modo da rendere la complessità costante nel caso
-		//di tavolo libero
-		//Si potrebbe pensare ad un sistema di indicizzazione
-		//inversa in modo da rendere il tempo costante anche se il
-		//tavolo è occupato
-		
-		if (tavoli.get(numTavolo-1).isLibero())
-			return null;
-		
-		//Il tavolo è occupato passo al retrieve dell'ordinazione
 		
 		Iterator<IOrdinazione> ordIt = ordinazioni.iterator();
 		IOrdinazione ordTmp;
@@ -146,15 +131,12 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 		
 		while (ordIt.hasNext()){
 			ordTmp=ordIt.next();
-			tavTmp= ordTmp.getTavolo();
-			if (tavTmp.getNumero()==numTavolo){
-				return ordTmp;
+			tavTmp=ordTmp.getTavolo();
+			if (tavTmp.getNumero()==numTavolo) {
+					return ordTmp;
 			}
 		}
 		
-		//Non dovrebbe arrivare a questo return in quanto abbiamo appurato che il tavolo
-		// è occupato
 		return null;
-
 	}
 }
