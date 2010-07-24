@@ -2,12 +2,18 @@ package it.unina.maruzzella;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestTavolo {
 	
 	ITavolo tavolo;
+	ITavoloCreator tavoloCreator;
 	
+	@Before
+	public void setUp() throws Exception {
+		tavoloCreator = new TavoloCreator();
+	}
 
 	/* Test1
 	 * 
@@ -19,7 +25,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto=2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		assertEquals(numeroTavolo, tavolo.getNumero());
 		assertEquals(maxCoperti, tavolo.getMaxCoperti());
@@ -37,7 +43,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto=2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 	}
 	
 	
@@ -51,7 +57,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto=2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		assertEquals(numeroTavolo, tavolo.getNumero());
 		assertEquals(maxCoperti, tavolo.getMaxCoperti());
@@ -69,7 +75,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto=2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		assertEquals(numeroTavolo, tavolo.getNumero());
 		assertEquals(maxCoperti, tavolo.getMaxCoperti());
@@ -87,7 +93,7 @@ public class TestTavolo {
 		int maxCoperti=1;
 		double costoCoperto=2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 	}
 	
 	
@@ -101,7 +107,7 @@ public class TestTavolo {
 		int maxCoperti=2;
 		double costoCoperto=2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		assertEquals(numeroTavolo, tavolo.getNumero());
 		assertEquals(maxCoperti, tavolo.getMaxCoperti());
@@ -119,7 +125,7 @@ public class TestTavolo {
 		int maxCoperti=3;
 		double costoCoperto=2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		assertEquals(numeroTavolo, tavolo.getNumero());
 		assertEquals(maxCoperti, tavolo.getMaxCoperti());
@@ -137,7 +143,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = -0.001;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 	}
 	
 	
@@ -151,7 +157,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 0;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		assertEquals(numeroTavolo, tavolo.getNumero());
 		assertEquals(maxCoperti, tavolo.getMaxCoperti());
@@ -169,7 +175,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 0.001;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		assertEquals(numeroTavolo, tavolo.getNumero());
 		assertEquals(maxCoperti, tavolo.getMaxCoperti());
@@ -187,7 +193,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		int coperti = 3;	
 		tavolo.setCoperti(coperti);
@@ -204,7 +210,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		int coperti = 0;	
 		tavolo.setCoperti(coperti);
@@ -221,7 +227,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		int coperti = 1;	
 		tavolo.setCoperti(coperti);
@@ -240,7 +246,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		int coperti = 2;	
 		tavolo.setCoperti(coperti);
@@ -259,7 +265,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		int coperti = maxCoperti+1;	
 		tavolo.setCoperti(coperti);
@@ -276,7 +282,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		int coperti = maxCoperti;	
 		tavolo.setCoperti(coperti);
@@ -295,7 +301,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		int coperti = maxCoperti-1;	
 		tavolo.setCoperti(coperti);
@@ -314,7 +320,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		int coperti = 0;
 		
@@ -332,7 +338,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		int coperti = 3;
 		tavolo.setCoperti(coperti);
@@ -353,7 +359,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		double expected = 0;
 		
@@ -371,7 +377,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		assertEquals(true, tavolo.isLibero());
 	}
@@ -387,7 +393,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		tavolo.setLibero(false);
 		assertEquals(false, tavolo.isLibero());
@@ -406,7 +412,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		tavolo.setCoperti(maxCoperti);
 		
@@ -427,7 +433,7 @@ public class TestTavolo {
 		int maxCoperti=5;
 		double costoCoperto = 2;
 		
-		tavolo = new Tavolo(numeroTavolo, maxCoperti, costoCoperto);
+		tavolo = tavoloCreator.creaTavolo(numeroTavolo, maxCoperti, costoCoperto);
 		
 		tavolo.setLibero(true);
 		assertEquals(true, tavolo.isLibero());
