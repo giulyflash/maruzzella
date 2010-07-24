@@ -44,6 +44,7 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 					try {
 						tav.setCoperti(npersone);
 						ord = ordinazioneCreator.creaOrdinazione(tav);
+						ordinazioni.add(ord);
 						return tav.getNumero();
 					}
 					catch (InvalidInputException e) {
@@ -90,7 +91,7 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 		double contoOut=0.0;
 		
 		
-		IOrdinazione ordTmp= getOrdinazioneAttiva(numTavolo);
+		IOrdinazione ordTmp = getOrdinazioneAttiva(numTavolo);
 		if (ordTmp==null)//Tavolo specificato libero
 			throw new InvalidInputException("Chiesto conto per un tavolo libero");
 		else
