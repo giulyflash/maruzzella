@@ -92,7 +92,7 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 		
 		IOrdinazione ordTmp= getOrdinazioneAttiva(numTavolo);
 		if (ordTmp==null)//Tavolo specificato libero
-			throw new InvalidInputException("Piatto Ordinato per un tavolo libero");
+			throw new InvalidInputException("Chiesto conto per un tavolo libero");
 		else
 			contoOut=ordTmp.calcolaConto();
 		
