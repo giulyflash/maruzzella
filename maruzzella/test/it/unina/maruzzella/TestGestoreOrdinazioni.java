@@ -508,76 +508,124 @@ public class TestGestoreOrdinazioni {
 	
 	/*Test 15
 	 * 
-	 * calcolaConto Tavolo Zero
+	 * chiediConto Tavolo Zero
 	 * 
 	 */
-	@Test
-	public void testCalcolaContoTavoloZero(){fail ("Not Yet Implemented!");}
+	@Test(expected= InvalidInputException.class)
+	public void testChiediContoTavoloZero()throws InvalidInputException{
+		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		
+		int numTavolo=0;
+		@SuppressWarnings("unused")
+		double conto=gestOrdinazioni.chiediConto(numTavolo);
+	}
 	
 	/*Test 16
 	 * 
-	 * calcolaConto Tavolo 1 senza aver inserito alcun tavolo
+	 * chiediConto Tavolo 1 senza aver inserito alcun tavolo
 	 * 
 	 */
-	@Test
-	public void testCalcolaContoNoTavoli(){fail ("Not Yet Implemented!");}
+	@Test(expected=InvalidInputException.class)
+	public void testChiediContoNoTavoli()throws InvalidInputException{
+		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		
+		int numTavolo=1;
+		@SuppressWarnings("unused")
+		double conto=gestOrdinazioni.chiediConto(numTavolo);
+	}
 	
 	/*Test 17
 	 * 
-	 * calcolaConto tavolo maggiore del num totale di tavoli
+	 * chiediConto tavolo maggiore del num totale di tavoli
 	 * 
 	 */
-	@Test
-	public void testCalcolaContoNumTavoloTroppoGrande(){fail ("Not Yet Implemented!");}
+	@Test(expected=InvalidInputException.class)
+	public void testChiediContoNumTavoloTroppoGrande()throws InvalidInputException{
+		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		
+		int tavoloRichiesto=2;
+		//String nomePiatto="Maruzze con la spina";
+		//double prezzoPiatto=10.00;
+		int numeroTavolo = 1;
+		int maxCoperti = 7;
+		double costoCoperto = 2;
+		
+	
+		ITavolo tavolo = createMock(Tavolo.class);
+		//IOrdinazione ordinazione = createMock(Ordinazione.class);
+		ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		//IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
+		
+		//Record and playback
+		expect(tavoloCreator.creaTavolo(EasyMock.geq(1),EasyMock.eq(maxCoperti), EasyMock.eq(costoCoperto))).andReturn(tavolo);
+		expect(tavolo.isLibero()).andReturn(true);
+		expect(tavolo.getMaxCoperti()).andReturn(maxCoperti);
+		tavolo.setCoperti(maxCoperti);
+		
+		//expect(ordinazioneCreator.creaOrdinazione(tavolo)).andReturn(ordinazione);
+		//expect(tavolo.getNumero()).andReturn(numeroTavolo);
+		
+		gestOrdinazioni.setTavoloCreator(tavoloCreator);
+		//gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
+		
+		replay(tavolo, tavoloCreator);
+		//end
+		
+		gestOrdinazioni.aggiungiTavolo(maxCoperti, costoCoperto);
+		gestOrdinazioni.chiediConto(tavoloRichiesto);
+		
+		
+		//gestOrdinazioni.ordinaPiatto(tavoloRichiesto, nomePiatto, prezzoPiatto);
+	}
 	
 	
 	/*Test 18
 	 * 
-	 * calcolaConto su Tavolo Libero
+	 * chiediConto su Tavolo Libero
 	 * 
 	 */
 	@Test
-	public void testCalcolaContoSuTavoloLibero(){fail ("Not Yet Implemented!");}
+	public void testChiediContoSuTavoloLibero(){fail ("Not Yet Implemented!");}
 	
 	/*Test 19
 	 * 
-	 * calcolaConto Tavolo OK! una ordinazione senza piatti ordinati
+	 * chiediConto Tavolo OK! una ordinazione senza piatti ordinati
 	 * 
 	 */
 	@Test
-	public void testCalcolaContoUnOrdinazioneNoPiatti(){fail ("Not Yet Implemented!");}
+	public void testChiediContoUnOrdinazioneNoPiatti(){fail ("Not Yet Implemented!");}
 	
 	/*Test 20
 	 * 
-	 * calcolaConto Tavolo OK! una ordinazione 1 piatt0 ordinat0
+	 * chiediConto Tavolo OK! una ordinazione 1 piatt0 ordinat0
 	 * 
 	 */
 	@Test
-	public void testCalcolaContoUnOrdinazioneUnPiatto(){fail ("Not Yet Implemented!");}
+	public void testChiediContoUnOrdinazioneUnPiatto(){fail ("Not Yet Implemented!");}
 	
 	/*Test 21
 	 * 
-	 * calcolaConto Tavolo OK! una ordinazione senza piatti ordinati
+	 * chiediConto Tavolo OK! una ordinazione senza piatti ordinati
 	 * 
 	 */
 	@Test
-	public void testCalcolaContoUnOrdinazioneDuePiatti(){fail ("Not Yet Implemented!");}
+	public void testChiediContoUnOrdinazioneDuePiatti(){fail ("Not Yet Implemented!");}
 	
 	/*Test 22
 	 * 
-	 * calcolaConto su Ordinazioni molteplici ordina un piatto su una sola ord
+	 * chiediConto su Ordinazioni molteplici ordina un piatto su una sola ord
 	 * 
 	 */
 	@Test
-	public void testCalcolaContoMoltepliciOrdinazioniUnPiatto(){fail ("Not Yet Implemented!");}
+	public void testChiediContoMoltepliciOrdinazioniUnPiatto(){fail ("Not Yet Implemented!");}
 	
 	/*Test 23
 	 * 
-	 * calcolaConto su Ordinazioni molteplici ordina un piatto per ogni ordinazione
+	 * chiediConto su Ordinazioni molteplici ordina un piatto per ogni ordinazione
 	 * 
 	 */
 	@Test
-	public void testCalcolaContoMoltepliciOrdinazioniDuePiatti(){fail ("Not Yet Implemented!");}
+	public void testChiediContoMoltepliciOrdinazioniDuePiatti(){fail ("Not Yet Implemented!");}
 	
 	
 	

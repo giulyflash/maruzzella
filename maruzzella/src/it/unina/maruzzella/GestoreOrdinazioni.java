@@ -90,8 +90,14 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 	}
 
 	@Override
-	public double chiediConto(int numTavolo) {
-		// TODO Auto-generated method stub
+	public double chiediConto(int numTavolo) throws InvalidInputException{
+		
+		if (numTavolo<=0)
+			throw new InvalidInputException("Chiesto Conto per tavolo non valido");
+		
+		if (numTavolo>tavoli.size())
+			throw new InvalidInputException("Chiesto Conto per tavolo inesistente");
+		
 		return 0;
 	}
 

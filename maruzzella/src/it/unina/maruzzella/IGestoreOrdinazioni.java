@@ -31,8 +31,9 @@ public interface IGestoreOrdinazioni {
 	 * @param numTavolo numero del tavolo associato all'ordinazione
 	 * 
 	 * @return totale da pagare: coperto + prezzo dei piatti
+	 * @throws InvalidInputException 
 	 */
-	public double chiediConto(int numTavolo);
+	public double chiediConto(int numTavolo) throws InvalidInputException;
 	
 	
 	/**
