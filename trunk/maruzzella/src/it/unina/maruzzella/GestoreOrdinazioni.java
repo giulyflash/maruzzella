@@ -66,26 +66,15 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 		if (numTavolo> tavoli.size())
 			throw new InvalidInputException("Ordinazione per un tavolo inesistente");
 		
-		Iterator<IOrdinazione> ordIt = ordinazioni.iterator();
-		IOrdinazione ordTmp;
-		ITavolo tavTmp;
-		boolean found=false;
 		
-		while (ordIt.hasNext()){
-			ordTmp=ordIt.next();
-			tavTmp= ordTmp.getTavolo();
-			if (!tavTmp.isLibero()){
-				//Se tavolo non libero => Ordinazione presente
-				//Procediamo ad ordinare il piatto
-				IPiatto piattoOrdinato=new Piatto(nomePiatto, prezzoPiatto);
-				ordTmp.ordinaPiatto(piattoOrdinato);
-				found=true;
-			}
-			
-		}
+		IOrdinazione ordTmp= getOrdinazioneAttiva(numTavolo);
 		
-		if (!found)
+		if (ordTmp==null)//Il tavolo specificato è libero
 			throw new InvalidInputException("Piatto Ordinato per un tavolo libero");
+		else{
+			IPiatto piattoOrdinato=new Piatto(nomePiatto, prezzoPiatto);
+			ordTmp.ordinaPiatto(piattoOrdinato);
+		}
 
 	}
 
@@ -98,28 +87,16 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 		if (numTavolo>tavoli.size())
 			throw new InvalidInputException("Chiesto Conto per tavolo inesistente");
 		
-		Iterator<IOrdinazione> ordIt = ordinazioni.iterator();
-		IOrdinazione ordTmp;
-		ITavolo tavTmp;
-		boolean found=false;
 		double contoOut=0.0;
 		
-		while (ordIt.hasNext()){
-			ordTmp=ordIt.next();
-			tavTmp= ordTmp.getTavolo();
-			if (!tavTmp.isLibero()){
-				//Se tavolo non libero => Ordinazione presente
-				//Procediamo a calcolare i conto
-				contoOut=ordTmp.calcolaConto();
-				found=true;
-			}
-			
-		}
 		
-		if (!found)
+		IOrdinazione ordTmp= getOrdinazioneAttiva(numTavolo);
+		if (ordTmp==null)//Tavolo specificato libero
 			throw new InvalidInputException("Piatto Ordinato per un tavolo libero");
+		else
+			contoOut=ordTmp.calcolaConto();
 		
-		return contoOut;
+		return contoOut;	
 	}
 
 	@Override
@@ -132,5 +109,51 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 	@Override
 	public int getNTavoli() {
 		return tavoli.size();
+	}
+	
+	/**
+	 * Preso in input il num di un tavolo, se questo è occupato restituisce
+	 * in output l'istanza di ordinazione associata
+	 * null altrimenti
+	 * @param numTavolo
+	 * @return
+	 */
+	
+	private IOrdinazione getOrdinazioneAttiva(int numTavolo){
+		
+		if ( (numTavolo==0) || (numTavolo>tavoli.size()) )
+			return null;
+		
+		
+		
+		//Primo controllo per ottimizzazione
+		//Utilizzo la proprietà di accesso diretta dell'ArrayList
+		//in modo da rendere la complessità costante nel caso
+		//di tavolo libero
+		//Si potrebbe pensare ad un sistema di indicizzazione
+		//inversa in modo da rendere il tempo costante anche se il
+		//tavolo è occupato
+		
+		if (tavoli.get(numTavolo-1).isLibero())
+			return null;
+		
+		//Il tavolo è occupato passo al retrieve dell'ordinazione
+		
+		Iterator<IOrdinazione> ordIt = ordinazioni.iterator();
+		IOrdinazione ordTmp;
+		ITavolo tavTmp;
+		
+		while (ordIt.hasNext()){
+			ordTmp=ordIt.next();
+			tavTmp= ordTmp.getTavolo();
+			if (tavTmp.getNumero()==numTavolo){
+				return ordTmp;
+			}
+		}
+		
+		//Non dovrebbe arrivare a questo return in quanto abbiamo appurato che il tavolo
+		// è occupato
+		return null;
+
 	}
 }
