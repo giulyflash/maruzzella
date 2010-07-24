@@ -1,6 +1,7 @@
 package it.unina.maruzzella;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class GestoreOrdinazioni implements IGestoreOrdinazioni {
@@ -29,7 +30,27 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 
 	@Override
 	public int creaOrdinazione(int npersone) {
-		// TODO Auto-generated method stub
+		ITavolo tav;
+		IOrdinazione ord;
+		
+		Iterator<ITavolo> tavIterator = tavoli.iterator();
+		while (tavIterator.hasNext()) {
+			tav = tavIterator.next();
+			if (tav.isLibero()) {
+				if(tav.getMaxCoperti() >= npersone) {
+					try {
+						tav.setCoperti(npersone);
+						ord = ordinazioneCreator.creaOrdinazione(tav);
+						return tav.getNumero();
+					}
+					catch (InvalidInputException e) {
+						System.err.println(e.getMessage());
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+
 		return 0;
 	}
 
