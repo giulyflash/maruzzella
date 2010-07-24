@@ -138,6 +138,8 @@ public class TestGestoreOrdinazioni {
 	
 	/**Test6
 	 * 
+	 * Occupiamo il primo tavolo con un'ordinazione
+	 * Richiediamo nuova ordinazione ci restituirà primo tavolo libero
 	 */
 	@Test
 	public void testCreaOrdinazioneConPrimoTavoloOccupato()throws InvalidInputException{
@@ -193,6 +195,125 @@ public class TestGestoreOrdinazioni {
 		
 		assertEquals(numeroTavolo1, numeroTavoloRestituito1);
 		//assertEquals(numeroTavolo2, numeroTavoloRestituito2);
+	}
+	
+	
+	/**Test7
+	 * 
+	 * Testiamo tutti i tavolo non liberi
+	 */
+	@Test
+	public void testCreaOrdinazioneTuttiTavoliOccupati()throws InvalidInputException{
+		
+		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		
+		int numeroTavolo1 = 1;
+		
+		
+		int maxCoperti1 = 7;
+		int maxCoperti2 = 2;
+		double costoCoperto1 = 2;
+		
+		
+		ITavolo tavolo1 = createMock(Tavolo.class);
+		ITavolo tavolo2 = createMock(Tavolo.class);
+		IOrdinazione ordinazione1 = createMock(Ordinazione.class);
+		IOrdinazione ordinazione2 = createMock(Ordinazione.class);
+		
+		ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
+		
+		//Record and playback
+		expect(tavoloCreator.creaTavolo(numeroTavolo1,maxCoperti1,costoCoperto1)).andReturn(tavolo1);
+		
+		
+		//Ordinazione 1
+		expect(tavolo1.isLibero()).andReturn(true);
+		expect(tavolo1.getMaxCoperti()).andReturn(maxCoperti1);
+		tavolo1.setCoperti(maxCoperti1);
+		expect(ordinazioneCreator.creaOrdinazione(tavolo1)).andReturn(ordinazione1);
+		expect(tavolo1.getNumero()).andReturn(numeroTavolo1);
+		
+		//Ordinazione 2
+		expect(tavolo1.isLibero()).andReturn(false);
+		
+		//end
+		
+		gestOrdinazioni.setTavoloCreator(tavoloCreator);
+		gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
+		
+		replay(tavolo1, tavoloCreator, ordinazioneCreator);
+		gestOrdinazioni.aggiungiTavolo(maxCoperti1, costoCoperto1);
+		//gestOrdinazioni.aggiungiTavolo(maxCoperti2, costoCoperto2);
+		int numeroTavoloRestituito1 = gestOrdinazioni.creaOrdinazione(maxCoperti1);
+		int numeroTavoloRestituito2 = gestOrdinazioni.creaOrdinazione(maxCoperti2);
+		verify(tavolo1,  tavoloCreator, ordinazioneCreator);
+		
+		assertEquals(numeroTavolo1, numeroTavoloRestituito1);
+		//0 => Nessun tavolo associato
+		assertEquals(0, numeroTavoloRestituito2);
+	}
+	
+	/**Test8
+	 * 
+	 * Testiamo secondo tavolo non abbastanza grande
+	 */
+	@Test
+	public void testCreaOrdinazioneTavoloNonCapiente()throws InvalidInputException{
+		
+		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		
+		int numeroTavolo1 = 1;
+		int numeroTavolo2 = 2;
+		
+		int maxCoperti1 = 7;
+		int maxCoperti2 = 2;
+		double costoCoperto1 = 2;
+		double costoCoperto2 = 2;
+		
+		ITavolo tavolo1 = createMock(Tavolo.class);
+		ITavolo tavolo2 = createMock(Tavolo.class);
+		IOrdinazione ordinazione1 = createMock(Ordinazione.class);
+		IOrdinazione ordinazione2 = createMock(Ordinazione.class);
+		
+		ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
+		
+		//Record and playback
+		expect(tavoloCreator.creaTavolo(numeroTavolo1,maxCoperti1,costoCoperto1)).andReturn(tavolo1);
+		expect(tavoloCreator.creaTavolo(numeroTavolo2,maxCoperti2,costoCoperto2)).andReturn(tavolo2);
+		
+		//Ordinazione 1
+		expect(tavolo1.isLibero()).andReturn(true);
+		expect(tavolo1.getMaxCoperti()).andReturn(maxCoperti1);
+		tavolo1.setCoperti(maxCoperti1);
+		expect(ordinazioneCreator.creaOrdinazione(tavolo1)).andReturn(ordinazione1);
+		expect(tavolo1.getNumero()).andReturn(numeroTavolo1);
+		
+		//Ordinazione 2
+		expect(tavolo1.isLibero()).andReturn(false);
+		expect(tavolo2.isLibero()).andReturn(true);
+		expect(tavolo2.getMaxCoperti()).andReturn(maxCoperti2);
+		
+		
+		//end
+		
+		gestOrdinazioni.setTavoloCreator(tavoloCreator);
+		gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
+		
+		replay(tavolo1, tavolo2, tavoloCreator, ordinazioneCreator);
+		
+		gestOrdinazioni.aggiungiTavolo(maxCoperti1, costoCoperto1);
+		gestOrdinazioni.aggiungiTavolo(maxCoperti2, costoCoperto2);
+		int numeroTavoloRestituito1 = gestOrdinazioni.creaOrdinazione(maxCoperti1);
+		//Seconda ordinazione numPersone > maxCoperti
+		int numeroTavoloRestituito2 = gestOrdinazioni.creaOrdinazione(maxCoperti2+1);
+		
+		verify(tavolo1, tavolo2, tavoloCreator, ordinazioneCreator);
+		
+		assertEquals(numeroTavolo1, numeroTavoloRestituito1);
+		//0=> Nessun tavolo associato
+		assertEquals(0, numeroTavoloRestituito2);
 	}
 }
 
