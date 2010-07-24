@@ -848,20 +848,25 @@ public class TestGestoreOrdinazioni {
 	public void testChiediContoMoltepliciOrdinazioniDuePiatti() throws InvalidInputException {
 		  IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
 		  
-		  int tavoloRichiesto=2;
+		  int tavoloRichiesto1=1;
+		  int tavoloRichiesto2=2;
 		  
 		  int numeroTavolo1 = 1;
-		  int maxCoperti1 = 4;
+		  int maxCoperti1 = 9;
 		  double costoCoperto1 = 3.5;
 		  
 		  int numeroTavolo2 = 2;
 		  int maxCoperti2 = 6;
 		  double costoCoperto2 = 2;
+
+		  String nomePiatto1 = "Tagliatelle di don Giovanni";
+		  double prezzoPiatto1 = 99.99;
 		  
-		  String nomePiatto = "Tagliatelle di nonna Pina";
-		  double prezzoPiatto = 99.99;
+		  String nomePiatto2 = "Penne alla mammà";
+		  double prezzoPiatto2 = 7.5;
 		  
-		  double contoAspettato = prezzoPiatto + (maxCoperti2 * costoCoperto2);
+		  double contoAspettato1 = prezzoPiatto1 + (maxCoperti1 * costoCoperto1);
+		  double contoAspettato2 = prezzoPiatto2 + (maxCoperti2 * costoCoperto2);
 		  
 		  
 		  ITavolo tavolo1 = createMock(Tavolo.class);
@@ -874,17 +879,23 @@ public class TestGestoreOrdinazioni {
 		  //Record and playback
 		  expect(tavoloCreator.creaTavolo(numeroTavolo1,maxCoperti1,costoCoperto1)).andReturn(tavolo1);
 		  expect(tavoloCreator.creaTavolo(numeroTavolo2,maxCoperti2,costoCoperto2)).andReturn(tavolo2);
-		  expect(tavolo1.isLibero()).andReturn(true);
-		  expect(tavolo2.isLibero()).andReturn(true);
-		  expect(tavolo1.getMaxCoperti()).andReturn(maxCoperti1);
-		  expect(tavolo2.getMaxCoperti()).andReturn(maxCoperti2);
+		  expect(tavolo1.isLibero()).andReturn(true).times(2);
+		  expect(tavolo2.isLibero()).andReturn(true).times(2);
+		  expect(tavolo1.getMaxCoperti()).andReturn(maxCoperti1).times(2);
+		  expect(tavolo2.getMaxCoperti()).andReturn(maxCoperti2).times(2);
+		  tavolo1.setCoperti(maxCoperti1);
 		  tavolo2.setCoperti(maxCoperti2);
+		  expect(ordinazioneCreator.creaOrdinazione(tavolo1)).andReturn(ordinazione1);
 		  expect(ordinazioneCreator.creaOrdinazione(tavolo2)).andReturn(ordinazione2);
-		  expect(tavolo2.getNumero()).andReturn(numeroTavolo2).times(3);
+		  expect(tavolo1.getNumero()).andReturn(numeroTavolo1);
+		  expect(tavolo2.getNumero()).andReturn(numeroTavolo2);
+		  expect(ordinazione1.getTavolo()).andReturn(tavolo1).times(2);
 		  expect(ordinazione2.getTavolo()).andReturn(tavolo2).times(2);
 		  
-		  ordinazione2.ordinaPiatto((IPiatto) and(anyObject(), eq(new Piatto(nomePiatto, prezzoPiatto))));
-		  expect(ordinazione2.calcolaConto()).andReturn(contoAspettato);
+		  ordinazione1.ordinaPiatto((IPiatto) and(anyObject(), eq(new Piatto(nomePiatto1, prezzoPiatto1))));
+		  ordinazione2.ordinaPiatto((IPiatto) and(anyObject(), eq(new Piatto(nomePiatto2, prezzoPiatto2))));
+		  expect(ordinazione1.calcolaConto()).andReturn(contoAspettato1);
+		  expect(ordinazione2.calcolaConto()).andReturn(contoAspettato2);
 		  
 		  
 		  //end
@@ -896,15 +907,18 @@ public class TestGestoreOrdinazioni {
 		  replay(tavolo1, tavolo2, ordinazione1, ordinazione2, tavoloCreator, ordinazioneCreator);
 		  gestOrdinazioni.aggiungiTavolo(maxCoperti1, costoCoperto1);
 		  gestOrdinazioni.aggiungiTavolo(maxCoperti2, costoCoperto2);
-		  int tavoloAssegnato = gestOrdinazioni.creaOrdinazione(maxCoperti2);
-		  gestOrdinazioni.ordinaPiatto(tavoloRichiesto, nomePiatto, prezzoPiatto);
-		  double contoCalcolato = gestOrdinazioni.chiediConto(tavoloRichiesto);
+		  int tavoloAssegnato1 = gestOrdinazioni.creaOrdinazione(maxCoperti1);
+		  int tavoloAssegnato2 = gestOrdinazioni.creaOrdinazione(maxCoperti2);
+		  gestOrdinazioni.ordinaPiatto(tavoloRichiesto1, nomePiatto1, prezzoPiatto1);
+		  gestOrdinazioni.ordinaPiatto(tavoloRichiesto2, nomePiatto2, prezzoPiatto2);
+		  double contoCalcolato1 = gestOrdinazioni.chiediConto(tavoloRichiesto1);
+		  double contoCalcolato2 = gestOrdinazioni.chiediConto(tavoloRichiesto2);
 		  verify(tavolo1, tavolo2, ordinazione1, ordinazione2, tavoloCreator, ordinazioneCreator);
 		  
-		  assertEquals(tavoloAssegnato, tavoloRichiesto);
-		  assertEquals(contoAspettato, contoCalcolato, 0);
-		  
-		  fail("questo test e' il copia e incolla del test 22");
+		  assertEquals(tavoloAssegnato1, tavoloRichiesto1);
+		  assertEquals(tavoloAssegnato2, tavoloRichiesto2);
+		  assertEquals(contoAspettato1, contoCalcolato1, 0);
+		  assertEquals(contoAspettato2, contoCalcolato2, 0);
 	}
 	
 	
@@ -954,6 +968,7 @@ public class TestGestoreOrdinazioni {
 		  
 		  assertEquals(contoAspettato, contoCalcolato, 0);
 		  
+		  //Con questo lancia l'eccezione
 		  gestOrdinazioni.chiediConto(tavoloRichiesto);
 	}
 }
