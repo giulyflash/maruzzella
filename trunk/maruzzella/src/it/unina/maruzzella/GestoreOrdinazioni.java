@@ -98,7 +98,28 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 		if (numTavolo>tavoli.size())
 			throw new InvalidInputException("Chiesto Conto per tavolo inesistente");
 		
-		return 0;
+		Iterator<IOrdinazione> ordIt = ordinazioni.iterator();
+		IOrdinazione ordTmp;
+		ITavolo tavTmp;
+		boolean found=false;
+		double contoOut=0.0;
+		
+		while (ordIt.hasNext()){
+			ordTmp=ordIt.next();
+			tavTmp= ordTmp.getTavolo();
+			if (!tavTmp.isLibero()){
+				//Se tavolo non libero => Ordinazione presente
+				//Procediamo a calcolare i conto
+				contoOut=ordTmp.calcolaConto();
+				found=true;
+			}
+			
+		}
+		
+		if (!found)
+			throw new InvalidInputException("Piatto Ordinato per un tavolo libero");
+		
+		return contoOut;
 	}
 
 	@Override
