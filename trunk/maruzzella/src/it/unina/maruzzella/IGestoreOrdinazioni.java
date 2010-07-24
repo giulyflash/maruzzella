@@ -20,8 +20,9 @@ public interface IGestoreOrdinazioni {
 	 * @param numTavolo numero del tavolo associato all'ordinazione
 	 * @param nomePiatto nome del piatto ordinato
 	 * @param prezzoPiatto prezzo del piatto ordinato
+	 * @throws InvalidInputException 
 	 */
-	public void ordinaPiatto(int numTavolo, String nomePiatto, double prezzoPiatto);
+	public void ordinaPiatto(int numTavolo, String nomePiatto, double prezzoPiatto) throws InvalidInputException;
 	
 	
 	/**

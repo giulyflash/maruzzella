@@ -1,5 +1,6 @@
 package it.unina.maruzzella;
 
+import java.awt.font.NumericShaper;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -55,9 +56,14 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 	}
 
 	@Override
-	public void ordinaPiatto(int numTavolo, String nomePiatto,
-			double prezzoPiatto) {
-		// TODO Auto-generated method stub
+	public void ordinaPiatto(int numTavolo, String nomePiatto,double prezzoPiatto) throws InvalidInputException{
+		
+		if (numTavolo<=0)
+			throw new InvalidInputException("Ordinazione per un tavolo non valido");
+		
+		if (numTavolo>= tavoli.size())
+			throw new InvalidInputException("Ordinazione per un tavolo inesistente");
+		
 
 	}
 
