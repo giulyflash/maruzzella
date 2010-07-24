@@ -544,38 +544,28 @@ public class TestGestoreOrdinazioni {
 		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
 		
 		int tavoloRichiesto=2;
-		//String nomePiatto="Maruzze con la spina";
-		//double prezzoPiatto=10.00;
 		int numeroTavolo = 1;
 		int maxCoperti = 7;
 		double costoCoperto = 2;
 		
 	
 		ITavolo tavolo = createMock(Tavolo.class);
-		//IOrdinazione ordinazione = createMock(Ordinazione.class);
 		ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
-		//IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
 		
 		//Record and playback
 		expect(tavoloCreator.creaTavolo(EasyMock.geq(1),EasyMock.eq(maxCoperti), EasyMock.eq(costoCoperto))).andReturn(tavolo);
 		expect(tavolo.isLibero()).andReturn(true);
 		expect(tavolo.getMaxCoperti()).andReturn(maxCoperti);
 		tavolo.setCoperti(maxCoperti);
-		
-		//expect(ordinazioneCreator.creaOrdinazione(tavolo)).andReturn(ordinazione);
-		//expect(tavolo.getNumero()).andReturn(numeroTavolo);
-		
+
 		gestOrdinazioni.setTavoloCreator(tavoloCreator);
-		//gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
 		
 		replay(tavolo, tavoloCreator);
 		//end
 		
 		gestOrdinazioni.aggiungiTavolo(maxCoperti, costoCoperto);
 		gestOrdinazioni.chiediConto(tavoloRichiesto);
-		
-		
-		//gestOrdinazioni.ordinaPiatto(tavoloRichiesto, nomePiatto, prezzoPiatto);
+
 	}
 	
 	
@@ -584,8 +574,33 @@ public class TestGestoreOrdinazioni {
 	 * chiediConto su Tavolo Libero
 	 * 
 	 */
-	@Test
-	public void testChiediContoSuTavoloLibero(){fail ("Not Yet Implemented!");}
+	@Test(expected=InvalidInputException.class)
+	public void testChiediContoSuTavoloLibero() throws InvalidInputException{
+		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		
+		int tavoloRichiesto=1;
+		int numeroTavolo = 1;
+		int maxCoperti = 7;
+		double costoCoperto = 2;
+		
+	
+		ITavolo tavolo = createMock(Tavolo.class);
+		ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		
+		//Record and playback
+		expect(tavoloCreator.creaTavolo(EasyMock.geq(1),EasyMock.eq(maxCoperti), EasyMock.eq(costoCoperto))).andReturn(tavolo);
+		expect(tavolo.isLibero()).andReturn(true);
+		expect(tavolo.getMaxCoperti()).andReturn(maxCoperti);
+		tavolo.setCoperti(maxCoperti);
+
+		gestOrdinazioni.setTavoloCreator(tavoloCreator);
+		
+		replay(tavolo, tavoloCreator);
+		//end
+		
+		gestOrdinazioni.aggiungiTavolo(maxCoperti, costoCoperto);
+		gestOrdinazioni.chiediConto(tavoloRichiesto);
+	}
 	
 	/*Test 19
 	 * 
