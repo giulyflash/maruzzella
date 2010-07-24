@@ -634,9 +634,7 @@ public class TestGestoreOrdinazioni {
 		  
 		  //Record and playback
 		  expect(tavoloCreator.creaTavolo(numeroTavolo,maxCoperti,costoCoperto)).andReturn(tavolo);
-		  expect(tavolo.isLibero())
-		  	.andReturn(true)
-		  	.andReturn(false);
+		  expect(tavolo.isLibero()).andReturn(true);
 		  expect(tavolo.getMaxCoperti()).andReturn(maxCoperti);
 		  tavolo.setCoperti(maxCoperti);
 		  expect(ordinazioneCreator.creaOrdinazione(tavolo)).andReturn(ordinazione);
@@ -667,7 +665,52 @@ public class TestGestoreOrdinazioni {
 	 * 
 	 */
 	@Test
-	public void testChiediContoUnOrdinazioneUnPiatto(){fail ("Not Yet Implemented!");}
+	public void testChiediContoUnOrdinazioneUnPiatto() throws InvalidInputException {
+		  IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		  
+		  int tavoloRichiesto=1;
+		  int numeroTavolo = 1;
+		  int maxCoperti = 4;
+		  double costoCoperto = 3.5;
+		  
+		  String nomePiatto = "Tagliatelle di nonna Pina";
+		  double prezzoPiatto = 99.99;
+		  
+		  double contoAspettato = prezzoPiatto + (maxCoperti * costoCoperto);
+		  
+		  
+		  ITavolo tavolo = createMock(Tavolo.class);
+		  IOrdinazione ordinazione = createMock(Ordinazione.class);
+		  ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		  IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
+		  
+		  //Record and playback
+		  expect(tavoloCreator.creaTavolo(numeroTavolo,maxCoperti,costoCoperto)).andReturn(tavolo);
+		  expect(tavolo.isLibero()).andReturn(true);
+		  expect(tavolo.getMaxCoperti()).andReturn(maxCoperti);
+		  tavolo.setCoperti(maxCoperti);
+		  expect(ordinazioneCreator.creaOrdinazione(tavolo)).andReturn(ordinazione);
+		  expect(tavolo.getNumero()).andReturn(numeroTavolo).times(2);
+
+		  expect(ordinazione.getTavolo()).andReturn(tavolo).times(2);
+		  ordinazione.ordinaPiatto((IPiatto) and(anyObject(), eq(new Piatto(nomePiatto, prezzoPiatto))));
+		  expect(ordinazione.calcolaConto()).andReturn(contoAspettato);
+		  expect(tavolo.getNumero()).andReturn(numeroTavolo);
+		  
+		  gestOrdinazioni.setTavoloCreator(tavoloCreator);
+		  gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
+		  
+		  //end
+		  
+		  replay(tavolo, ordinazione, tavoloCreator, ordinazioneCreator);
+		  gestOrdinazioni.aggiungiTavolo(maxCoperti, costoCoperto);
+		  gestOrdinazioni.creaOrdinazione(maxCoperti);
+		  gestOrdinazioni.ordinaPiatto(tavoloRichiesto, nomePiatto, prezzoPiatto);
+		  double contoCalcolato = gestOrdinazioni.chiediConto(tavoloRichiesto);
+		  verify(tavolo, ordinazione, tavoloCreator, ordinazioneCreator);
+		  
+		  assertEquals(contoAspettato, contoCalcolato, 0);
+	}
 	
 	
 	/*Test 21
@@ -676,7 +719,57 @@ public class TestGestoreOrdinazioni {
 	 * 
 	 */
 	@Test
-	public void testChiediContoUnOrdinazioneDuePiatti(){fail ("Not Yet Implemented!");}
+	public void testChiediContoUnOrdinazioneDuePiatti() throws InvalidInputException{
+		  IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		  
+		  int tavoloRichiesto=1;
+		  int numeroTavolo = 1;
+		  int maxCoperti = 4;
+		  double costoCoperto = 3.5;
+		  
+		  String nomePiatto1 = "Tagliatelle di nonna Pina";
+		  double prezzoPiatto1 = 99.99;
+		  
+		  String nomePiatto2 = "Cotoletta alla milanese";
+		  double prezzoPiatto2 = 49.99;
+		  
+		  double contoAspettato = prezzoPiatto1 + prezzoPiatto2 + (maxCoperti * costoCoperto);
+		  
+		  
+		  ITavolo tavolo = createMock(Tavolo.class);
+		  IOrdinazione ordinazione = createMock(Ordinazione.class);
+		  ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		  IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
+		  
+		  //Record and playback
+		  expect(tavoloCreator.creaTavolo(numeroTavolo,maxCoperti,costoCoperto)).andReturn(tavolo);
+		  expect(tavolo.isLibero()).andReturn(true);
+		  expect(tavolo.getMaxCoperti()).andReturn(maxCoperti);
+		  tavolo.setCoperti(maxCoperti);
+		  expect(ordinazioneCreator.creaOrdinazione(tavolo)).andReturn(ordinazione);
+		  expect(tavolo.getNumero()).andReturn(numeroTavolo).times(3);
+
+		  expect(ordinazione.getTavolo()).andReturn(tavolo).times(3);
+		  ordinazione.ordinaPiatto((IPiatto) and(anyObject(), eq(new Piatto(nomePiatto1, prezzoPiatto1))));
+		  ordinazione.ordinaPiatto((IPiatto) and(anyObject(), eq(new Piatto(nomePiatto2, prezzoPiatto2))));
+		  expect(ordinazione.calcolaConto()).andReturn(contoAspettato);
+		  expect(tavolo.getNumero()).andReturn(numeroTavolo);
+		  
+		  gestOrdinazioni.setTavoloCreator(tavoloCreator);
+		  gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
+		  
+		  //end
+		  
+		  replay(tavolo, ordinazione, tavoloCreator, ordinazioneCreator);
+		  gestOrdinazioni.aggiungiTavolo(maxCoperti, costoCoperto);
+		  gestOrdinazioni.creaOrdinazione(maxCoperti);
+		  gestOrdinazioni.ordinaPiatto(tavoloRichiesto, nomePiatto1, prezzoPiatto1);
+		  gestOrdinazioni.ordinaPiatto(tavoloRichiesto, nomePiatto2, prezzoPiatto2);
+		  double contoCalcolato = gestOrdinazioni.chiediConto(tavoloRichiesto);
+		  verify(tavolo, ordinazione, tavoloCreator, ordinazioneCreator);
+		  
+		  assertEquals(contoAspettato, contoCalcolato, 0);
+	}
 	
 	
 	/*Test 22
@@ -685,7 +778,65 @@ public class TestGestoreOrdinazioni {
 	 * 
 	 */
 	@Test
-	public void testChiediContoMoltepliciOrdinazioniUnPiatto(){fail ("Not Yet Implemented!");}
+	public void testChiediContoMoltepliciOrdinazioniUnPiatto() throws InvalidInputException{
+		  IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		  
+		  int tavoloRichiesto=2;
+		  
+		  int numeroTavolo1 = 1;
+		  int maxCoperti1 = 4;
+		  double costoCoperto1 = 3.5;
+		  
+		  int numeroTavolo2 = 2;
+		  int maxCoperti2 = 6;
+		  double costoCoperto2 = 2;
+		  
+		  String nomePiatto = "Tagliatelle di nonna Pina";
+		  double prezzoPiatto = 99.99;
+		  
+		  double contoAspettato = prezzoPiatto + (maxCoperti2 * costoCoperto2);
+		  
+		  
+		  ITavolo tavolo1 = createMock(Tavolo.class);
+		  ITavolo tavolo2 = createMock(Tavolo.class);
+		  IOrdinazione ordinazione1 = createMock(Ordinazione.class);
+		  IOrdinazione ordinazione2 = createMock(Ordinazione.class);
+		  ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		  IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
+		  
+		  //Record and playback
+		  expect(tavoloCreator.creaTavolo(numeroTavolo1,maxCoperti1,costoCoperto1)).andReturn(tavolo1);
+		  expect(tavoloCreator.creaTavolo(numeroTavolo2,maxCoperti2,costoCoperto2)).andReturn(tavolo2);
+		  expect(tavolo1.isLibero()).andReturn(true);
+		  expect(tavolo2.isLibero()).andReturn(true);
+		  expect(tavolo1.getMaxCoperti()).andReturn(maxCoperti1);
+		  expect(tavolo2.getMaxCoperti()).andReturn(maxCoperti2);
+		  tavolo2.setCoperti(maxCoperti2);
+		  expect(ordinazioneCreator.creaOrdinazione(tavolo2)).andReturn(ordinazione2);
+		  expect(tavolo2.getNumero()).andReturn(numeroTavolo2).times(3);
+		  expect(ordinazione2.getTavolo()).andReturn(tavolo2).times(2);
+		  
+		  ordinazione2.ordinaPiatto((IPiatto) and(anyObject(), eq(new Piatto(nomePiatto, prezzoPiatto))));
+		  expect(ordinazione2.calcolaConto()).andReturn(contoAspettato);
+		  
+		  
+		  //end
+		  
+		  gestOrdinazioni.setTavoloCreator(tavoloCreator);
+		  gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
+		  
+		  
+		  replay(tavolo1, tavolo2, ordinazione1, ordinazione2, tavoloCreator, ordinazioneCreator);
+		  gestOrdinazioni.aggiungiTavolo(maxCoperti1, costoCoperto1);
+		  gestOrdinazioni.aggiungiTavolo(maxCoperti2, costoCoperto2);
+		  int tavoloAssegnato = gestOrdinazioni.creaOrdinazione(maxCoperti2);
+		  gestOrdinazioni.ordinaPiatto(tavoloRichiesto, nomePiatto, prezzoPiatto);
+		  double contoCalcolato = gestOrdinazioni.chiediConto(tavoloRichiesto);
+		  verify(tavolo1, tavolo2, ordinazione1, ordinazione2, tavoloCreator, ordinazioneCreator);
+		  
+		  assertEquals(tavoloAssegnato, tavoloRichiesto);
+		  assertEquals(contoAspettato, contoCalcolato, 0);
+	}
 	
 	
 	/*Test 23
@@ -694,12 +845,116 @@ public class TestGestoreOrdinazioni {
 	 * 
 	 */
 	@Test
-	public void testChiediContoMoltepliciOrdinazioniDuePiatti(){fail ("Not Yet Implemented!");}
+	public void testChiediContoMoltepliciOrdinazioniDuePiatti() throws InvalidInputException {
+		  IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		  
+		  int tavoloRichiesto=2;
+		  
+		  int numeroTavolo1 = 1;
+		  int maxCoperti1 = 4;
+		  double costoCoperto1 = 3.5;
+		  
+		  int numeroTavolo2 = 2;
+		  int maxCoperti2 = 6;
+		  double costoCoperto2 = 2;
+		  
+		  String nomePiatto = "Tagliatelle di nonna Pina";
+		  double prezzoPiatto = 99.99;
+		  
+		  double contoAspettato = prezzoPiatto + (maxCoperti2 * costoCoperto2);
+		  
+		  
+		  ITavolo tavolo1 = createMock(Tavolo.class);
+		  ITavolo tavolo2 = createMock(Tavolo.class);
+		  IOrdinazione ordinazione1 = createMock(Ordinazione.class);
+		  IOrdinazione ordinazione2 = createMock(Ordinazione.class);
+		  ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		  IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
+		  
+		  //Record and playback
+		  expect(tavoloCreator.creaTavolo(numeroTavolo1,maxCoperti1,costoCoperto1)).andReturn(tavolo1);
+		  expect(tavoloCreator.creaTavolo(numeroTavolo2,maxCoperti2,costoCoperto2)).andReturn(tavolo2);
+		  expect(tavolo1.isLibero()).andReturn(true);
+		  expect(tavolo2.isLibero()).andReturn(true);
+		  expect(tavolo1.getMaxCoperti()).andReturn(maxCoperti1);
+		  expect(tavolo2.getMaxCoperti()).andReturn(maxCoperti2);
+		  tavolo2.setCoperti(maxCoperti2);
+		  expect(ordinazioneCreator.creaOrdinazione(tavolo2)).andReturn(ordinazione2);
+		  expect(tavolo2.getNumero()).andReturn(numeroTavolo2).times(3);
+		  expect(ordinazione2.getTavolo()).andReturn(tavolo2).times(2);
+		  
+		  ordinazione2.ordinaPiatto((IPiatto) and(anyObject(), eq(new Piatto(nomePiatto, prezzoPiatto))));
+		  expect(ordinazione2.calcolaConto()).andReturn(contoAspettato);
+		  
+		  
+		  //end
+		  
+		  gestOrdinazioni.setTavoloCreator(tavoloCreator);
+		  gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
+		  
+		  
+		  replay(tavolo1, tavolo2, ordinazione1, ordinazione2, tavoloCreator, ordinazioneCreator);
+		  gestOrdinazioni.aggiungiTavolo(maxCoperti1, costoCoperto1);
+		  gestOrdinazioni.aggiungiTavolo(maxCoperti2, costoCoperto2);
+		  int tavoloAssegnato = gestOrdinazioni.creaOrdinazione(maxCoperti2);
+		  gestOrdinazioni.ordinaPiatto(tavoloRichiesto, nomePiatto, prezzoPiatto);
+		  double contoCalcolato = gestOrdinazioni.chiediConto(tavoloRichiesto);
+		  verify(tavolo1, tavolo2, ordinazione1, ordinazione2, tavoloCreator, ordinazioneCreator);
+		  
+		  assertEquals(tavoloAssegnato, tavoloRichiesto);
+		  assertEquals(contoAspettato, contoCalcolato, 0);
+		  
+		  fail("questo test e' il copia e incolla del test 22");
+	}
 	
 	
-	
-	
-	
-		
+	/*Test 24
+	 * 
+	 * chiediConto su Ordinazione non piu' attiva
+	 */
+	@Test(expected=InvalidInputException.class)
+	public void testChiediContoOrdinazioniNonAttiva() throws InvalidInputException {
+		  IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		  
+		  int tavoloRichiesto=1;
+		  int numeroTavolo = 1;
+		  int maxCoperti = 4;
+		  double costoCoperto = 3.5;
+		  
+		  double contoAspettato = maxCoperti * costoCoperto;
+		  
+		  
+		  ITavolo tavolo = createMock(Tavolo.class);
+		  IOrdinazione ordinazione = createMock(Ordinazione.class);
+		  ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		  IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
+		  
+		  //Record and playback
+		  expect(tavoloCreator.creaTavolo(numeroTavolo,maxCoperti,costoCoperto)).andReturn(tavolo);
+		  expect(tavolo.isLibero()).andReturn(true);
+		  expect(tavolo.getMaxCoperti()).andReturn(maxCoperti);
+		  tavolo.setCoperti(maxCoperti);
+		  expect(ordinazioneCreator.creaOrdinazione(tavolo)).andReturn(ordinazione);
+		  expect(tavolo.getNumero()).andReturn(numeroTavolo);
+		  //expect relative a richiesta conto
+		  expect(ordinazione.getTavolo()).andReturn(tavolo).times(1);
+		  expect(ordinazione.calcolaConto()).andReturn(contoAspettato);
+		  expect(tavolo.getNumero()).andReturn(numeroTavolo);
+		  
+		  gestOrdinazioni.setTavoloCreator(tavoloCreator);
+		  gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
+		  
+		  //end
+		  
+		  replay(tavolo, ordinazione, tavoloCreator, ordinazioneCreator);
+		  gestOrdinazioni.aggiungiTavolo(maxCoperti, costoCoperto);
+		  gestOrdinazioni.creaOrdinazione(maxCoperti);
+		  double contoCalcolato = gestOrdinazioni.chiediConto(tavoloRichiesto);
+		  verify(tavolo, ordinazione, tavoloCreator, ordinazioneCreator);
+		  
+		  assertEquals(contoAspettato, contoCalcolato, 0);
+		  
+		  gestOrdinazioni.chiediConto(tavoloRichiesto);
+	}
 }
 

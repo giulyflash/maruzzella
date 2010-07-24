@@ -6,4 +6,5 @@ public interface IPiatto {
 	
 	public double getPrezzo();
 	
+	public boolean equals(Object aPiatto);
 }
