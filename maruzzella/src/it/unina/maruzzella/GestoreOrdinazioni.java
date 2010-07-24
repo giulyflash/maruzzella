@@ -10,12 +10,14 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 	ITavoloCreator tavoloCreator;
 	IOrdinazioneCreator ordinazioneCreator;
 	List<ITavolo> tavoli;
+	List<IOrdinazione> ordinazioni;
 	int prossimoNumero;
 	
 	public GestoreOrdinazioni(){
 		tavoloCreator = new TavoloCreator();
 		ordinazioneCreator = new OrdinazioneCreator();
 		tavoli = new ArrayList<ITavolo>();
+		ordinazioni= new ArrayList<IOrdinazione>();
 		prossimoNumero = 0;
 	}
 	
@@ -61,9 +63,29 @@ public class GestoreOrdinazioni implements IGestoreOrdinazioni {
 		if (numTavolo<=0)
 			throw new InvalidInputException("Ordinazione per un tavolo non valido");
 		
-		if (numTavolo>= tavoli.size())
+		if (numTavolo> tavoli.size())
 			throw new InvalidInputException("Ordinazione per un tavolo inesistente");
 		
+		Iterator<IOrdinazione> ordIt = ordinazioni.iterator();
+		IOrdinazione ordTmp;
+		ITavolo tavTmp;
+		boolean found=false;
+		
+		while (ordIt.hasNext()){
+			ordTmp=ordIt.next();
+			tavTmp= ordTmp.getTavolo();
+			if (!tavTmp.isLibero()){
+				//Se tavolo non libero => Ordinazione presente
+				//Procediamo ad ordinare il piatto
+				IPiatto piattoOrdinato=new Piatto(nomePiatto, prezzoPiatto);
+				ordTmp.ordinaPiatto(piattoOrdinato);
+				found=true;
+			}
+			
+		}
+		
+		if (!found)
+			throw new InvalidInputException("Piatto Ordinato per un tavolo libero");
 
 	}
 
