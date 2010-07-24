@@ -466,12 +466,12 @@ public class TestGestoreOrdinazioni {
 	
 	
 	/**Test14
-	 * 
-	 * Semplice test per il metodo ordinaPiatto numTavolo non valido
+	 *
 	 */
+
 	@Test(expected=InvalidInputException.class)
 	public void testOrdinaPiattoTavoloZeroSiTavoli()throws InvalidInputException{
-IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
 		
 		int tavoloRichiesto=0;
 		String nomePiatto="Maruzze con la spina";
@@ -505,6 +505,84 @@ IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
 		
 		gestOrdinazioni.ordinaPiatto(tavoloRichiesto, nomePiatto, prezzoPiatto);
 	}
+	
+	/*Test 15
+	 * 
+	 * calcolaConto Tavolo Zero
+	 * 
+	 */
+	@Test
+	public void testCalcolaContoTavoloZero(){fail ("Not Yet Implemented!");}
+	
+	/*Test 16
+	 * 
+	 * calcolaConto Tavolo 1 senza aver inserito alcun tavolo
+	 * 
+	 */
+	@Test
+	public void testCalcolaContoNoTavoli(){fail ("Not Yet Implemented!");}
+	
+	/*Test 17
+	 * 
+	 * calcolaConto tavolo maggiore del num totale di tavoli
+	 * 
+	 */
+	@Test
+	public void testCalcolaContoNumTavoloTroppoGrande(){fail ("Not Yet Implemented!");}
+	
+	
+	/*Test 18
+	 * 
+	 * calcolaConto su Tavolo Libero
+	 * 
+	 */
+	@Test
+	public void testCalcolaContoSuTavoloLibero(){fail ("Not Yet Implemented!");}
+	
+	/*Test 19
+	 * 
+	 * calcolaConto Tavolo OK! una ordinazione senza piatti ordinati
+	 * 
+	 */
+	@Test
+	public void testCalcolaContoUnOrdinazioneNoPiatti(){fail ("Not Yet Implemented!");}
+	
+	/*Test 20
+	 * 
+	 * calcolaConto Tavolo OK! una ordinazione 1 piatt0 ordinat0
+	 * 
+	 */
+	@Test
+	public void testCalcolaContoUnOrdinazioneUnPiatto(){fail ("Not Yet Implemented!");}
+	
+	/*Test 21
+	 * 
+	 * calcolaConto Tavolo OK! una ordinazione senza piatti ordinati
+	 * 
+	 */
+	@Test
+	public void testCalcolaContoUnOrdinazioneDuePiatti(){fail ("Not Yet Implemented!");}
+	
+	/*Test 22
+	 * 
+	 * calcolaConto su Ordinazioni molteplici ordina un piatto su una sola ord
+	 * 
+	 */
+	@Test
+	public void testCalcolaContoMoltepliciOrdinazioniUnPiatto(){fail ("Not Yet Implemented!");}
+	
+	/*Test 23
+	 * 
+	 * calcolaConto su Ordinazioni molteplici ordina un piatto per ogni ordinazione
+	 * 
+	 */
+	@Test
+	public void testCalcolaContoMoltepliciOrdinazioniDuePiatti(){fail ("Not Yet Implemented!");}
+	
+	
+	
+	
+	
 		
 }
 
