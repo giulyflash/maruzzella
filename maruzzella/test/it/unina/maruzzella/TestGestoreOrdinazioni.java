@@ -12,7 +12,7 @@ import static org.easymock.EasyMock.*;
 
 public class TestGestoreOrdinazioni {
 	
-	/**Test1
+	/*Test1
 	 * 
 	 * Semplice test del construttore
 	 */
@@ -24,7 +24,7 @@ public class TestGestoreOrdinazioni {
 		assertNotNull(gestOrdinazioni);
 	}
 	
-	/**Test2
+	/*Test2
 	 * 
 	 * Semplice test del metodo getNTavoli()
 	 */
@@ -36,7 +36,7 @@ public class TestGestoreOrdinazioni {
 		assertEquals(0, gestOrdinazioni.getNTavoli());
 	}
 
-	/**Test3
+	/*Test3
 	 * 
 	 * Metodo getNTavoli(), inserendo un solo tavolo.
 	 * In questo test e' previsto anche il test del metodo aggiungiTavolo.
@@ -63,7 +63,7 @@ public class TestGestoreOrdinazioni {
 	}
 	
 	
-	/**Test4
+	/*Test4
 	 * 
 	 * Metodo getNTavoli(), inserendo due tavoli.
 	 * In questo test e' previsto anche il test del metodo aggiungiTavolo.
@@ -95,7 +95,7 @@ public class TestGestoreOrdinazioni {
 	}
 	
 	
-	/**Test5
+	/*Test5
 	 * 
 	 * Semplice test per il metodo creaOrdinazione
 	 */
@@ -136,7 +136,7 @@ public class TestGestoreOrdinazioni {
 	}
 	
 	
-	/**Test6
+	/*Test6
 	 * 
 	 * Occupiamo il primo tavolo con un'ordinazione
 	 * Richiediamo nuova ordinazione ci restituirà primo tavolo libero
@@ -198,7 +198,7 @@ public class TestGestoreOrdinazioni {
 	}
 	
 	
-	/**Test7
+	/*Test7
 	 * 
 	 * Testiamo tutti i tavolo non liberi
 	 */
@@ -254,7 +254,8 @@ public class TestGestoreOrdinazioni {
 		assertEquals(0, numeroTavoloRestituito2);
 	}
 	
-	/**Test8
+	
+	/*Test8
 	 * 
 	 * Testiamo secondo tavolo non abbastanza grande
 	 */
@@ -316,7 +317,8 @@ public class TestGestoreOrdinazioni {
 		assertEquals(0, numeroTavoloRestituito2);
 	}
 	
-	/**Test9
+	
+	/*Test9
 	 * 
 	 * Nessun tavolo in assoluto
 	 */
@@ -347,7 +349,8 @@ public class TestGestoreOrdinazioni {
 		assertEquals(0, numeroTavoloRestituito);
 	}
 	
-	/**Test10
+	
+	/*Test10
 	 * 
 	 * Semplice test per il metodo ordinaPiatto numTavolo non valido
 	 */
@@ -362,7 +365,8 @@ public class TestGestoreOrdinazioni {
 		gestOrdinazioni.ordinaPiatto(0, nomePiatto, prezzoPiatto);
 	}
 	
-	/**Test11
+	
+	/*Test11
 	 * 
 	 * Semplice test per il metodo ordinaPiatto numTavolo maggiore totale tavoli (zero tavoli)
 	 */
@@ -378,7 +382,7 @@ public class TestGestoreOrdinazioni {
 	}
 	
 	
-	/**Test12
+	/*Test12
 	 * 
 	 * Semplice test per il metodo ordinaPiatto numTavolo maggiore totale tavoli (un tavol0)
 	 */
@@ -420,8 +424,9 @@ public class TestGestoreOrdinazioni {
 		gestOrdinazioni.ordinaPiatto(tavoloRichiesto, nomePiatto, prezzoPiatto);
 		
 	}
+
 	
-	/**Test13
+	/*Test13
 	 * 
 	 * Semplice test per il metodo ordinaPiatto numTavolo maggiore totale tavoli (un tavol0)
 	 */
@@ -465,10 +470,9 @@ public class TestGestoreOrdinazioni {
 	}
 	
 	
-	/**Test14
+	/*Test14
 	 *
 	 */
-
 	@Test(expected=InvalidInputException.class)
 	public void testOrdinaPiattoTavoloZeroSiTavoli()throws InvalidInputException{
 		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
@@ -506,6 +510,7 @@ public class TestGestoreOrdinazioni {
 		gestOrdinazioni.ordinaPiatto(tavoloRichiesto, nomePiatto, prezzoPiatto);
 	}
 	
+	
 	/*Test 15
 	 * 
 	 * chiediConto Tavolo Zero
@@ -520,6 +525,7 @@ public class TestGestoreOrdinazioni {
 		double conto=gestOrdinazioni.chiediConto(numTavolo);
 	}
 	
+	
 	/*Test 16
 	 * 
 	 * chiediConto Tavolo 1 senza aver inserito alcun tavolo
@@ -533,6 +539,7 @@ public class TestGestoreOrdinazioni {
 		@SuppressWarnings("unused")
 		double conto=gestOrdinazioni.chiediConto(numTavolo);
 	}
+	
 	
 	/*Test 17
 	 * 
@@ -602,6 +609,7 @@ public class TestGestoreOrdinazioni {
 		gestOrdinazioni.chiediConto(tavoloRichiesto);
 	}
 	
+	
 	/*Test 19
 	 * 
 	 * chiediConto Tavolo OK! una ordinazione senza piatti ordinati
@@ -616,6 +624,8 @@ public class TestGestoreOrdinazioni {
 		  int maxCoperti = 4;
 		  double costoCoperto = 3.5;
 		  
+		  double contoAspettato = maxCoperti * costoCoperto;
+		  
 		  
 		  ITavolo tavolo = createMock(Tavolo.class);
 		  IOrdinazione ordinazione = createMock(Ordinazione.class);
@@ -624,14 +634,16 @@ public class TestGestoreOrdinazioni {
 		  
 		  //Record and playback
 		  expect(tavoloCreator.creaTavolo(numeroTavolo,maxCoperti,costoCoperto)).andReturn(tavolo);
-		  expect(tavolo.isLibero()).andReturn(true);
+		  expect(tavolo.isLibero())
+		  	.andReturn(true)
+		  	.andReturn(false);
 		  expect(tavolo.getMaxCoperti()).andReturn(maxCoperti);
 		  tavolo.setCoperti(maxCoperti);
 		  expect(ordinazioneCreator.creaOrdinazione(tavolo)).andReturn(ordinazione);
 		  expect(tavolo.getNumero()).andReturn(numeroTavolo);
 		  //expect relative a richiesta conto
-		  expect(tavolo.isLibero()).andReturn(false);
 		  expect(ordinazione.getTavolo()).andReturn(tavolo);
+		  expect(ordinazione.calcolaConto()).andReturn(contoAspettato);
 		  expect(tavolo.getNumero()).andReturn(numeroTavolo);
 		  
 		  gestOrdinazioni.setTavoloCreator(tavoloCreator);
@@ -643,26 +655,29 @@ public class TestGestoreOrdinazioni {
 		  gestOrdinazioni.aggiungiTavolo(maxCoperti, costoCoperto);
 		  gestOrdinazioni.creaOrdinazione(maxCoperti);
 		  double contoCalcolato = gestOrdinazioni.chiediConto(tavoloRichiesto);
-		  double contoAspettato = maxCoperti * costoCoperto;
 		  verify(tavolo, ordinazione, tavoloCreator, ordinazioneCreator);
 		  
 		  assertEquals(contoAspettato, contoCalcolato, 0);
 	}
+	
+	
 	/*Test 20
 	 * 
-	 * chiediConto Tavolo OK! una ordinazione 1 piatt0 ordinat0
+	 * chiediConto Tavolo OK! una ordinazione - 1 piatto ordinato
 	 * 
 	 */
 	@Test
 	public void testChiediContoUnOrdinazioneUnPiatto(){fail ("Not Yet Implemented!");}
 	
+	
 	/*Test 21
 	 * 
-	 * chiediConto Tavolo OK! una ordinazione senza piatti ordinati
+	 * chiediConto Tavolo OK! una ordinazione - 2 piatto ordinato
 	 * 
 	 */
 	@Test
 	public void testChiediContoUnOrdinazioneDuePiatti(){fail ("Not Yet Implemented!");}
+	
 	
 	/*Test 22
 	 * 
@@ -671,6 +686,7 @@ public class TestGestoreOrdinazioni {
 	 */
 	@Test
 	public void testChiediContoMoltepliciOrdinazioniUnPiatto(){fail ("Not Yet Implemented!");}
+	
 	
 	/*Test 23
 	 * 
