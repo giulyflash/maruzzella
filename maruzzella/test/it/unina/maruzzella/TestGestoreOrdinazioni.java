@@ -315,5 +315,42 @@ public class TestGestoreOrdinazioni {
 		//0=> Nessun tavolo associato
 		assertEquals(0, numeroTavoloRestituito2);
 	}
+	
+	/**Test9
+	 * 
+	 * Nessun tavolo in assoluto
+	 */
+	@Test
+	public void testCreaOrdinazioneNoTavoli()throws InvalidInputException{
+		
+		IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		
+
+		int maxCoperti = 7;
+		double costoCoperto = 2;
+		
+		ITavolo tavolo = createMock(Tavolo.class);
+		IOrdinazione ordinazione = createMock(Ordinazione.class);
+		ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
+		
+
+	
+		
+		gestOrdinazioni.setTavoloCreator(tavoloCreator);
+		gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
+		
+		replay(tavolo, tavoloCreator);
+
+		
+
+		int numeroTavoloRestituito = gestOrdinazioni.creaOrdinazione(maxCoperti);
+		verify(tavolo, tavoloCreator);
+		
+		
+		//0=> Nessun tavolo associato
+		assertEquals(0, numeroTavoloRestituito);
+	}
+	
 }
 
