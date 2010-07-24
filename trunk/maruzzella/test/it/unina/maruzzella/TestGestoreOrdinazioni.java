@@ -629,6 +629,10 @@ public class TestGestoreOrdinazioni {
 		  tavolo.setCoperti(maxCoperti);
 		  expect(ordinazioneCreator.creaOrdinazione(tavolo)).andReturn(ordinazione);
 		  expect(tavolo.getNumero()).andReturn(numeroTavolo);
+		  //expect relative a richiesta conto
+		  expect(tavolo.isLibero()).andReturn(false);
+		  expect(ordinazione.getTavolo()).andReturn(tavolo);
+		  expect(tavolo.getNumero()).andReturn(numeroTavolo);
 		  
 		  gestOrdinazioni.setTavoloCreator(tavoloCreator);
 		  gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
@@ -637,6 +641,7 @@ public class TestGestoreOrdinazioni {
 		  
 		  replay(tavolo, ordinazione, tavoloCreator, ordinazioneCreator);
 		  gestOrdinazioni.aggiungiTavolo(maxCoperti, costoCoperto);
+		  gestOrdinazioni.creaOrdinazione(maxCoperti);
 		  double contoCalcolato = gestOrdinazioni.chiediConto(tavoloRichiesto);
 		  double contoAspettato = maxCoperti * costoCoperto;
 		  verify(tavolo, ordinazione, tavoloCreator, ordinazioneCreator);
