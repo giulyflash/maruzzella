@@ -114,9 +114,9 @@ public class TestGestoreOrdinazioni {
 		IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
 		
 		expect(tavoloCreator.creaTavolo(EasyMock.geq(1),EasyMock.eq(maxCoperti), EasyMock.eq(costoCoperto))).andReturn(tavolo);
-		expect(ordinazioneCreator.creaOrdinazione(tavolo)).andReturn(ordinazione);
 		expect(tavolo.isLibero()).andReturn(true);
 		expect(tavolo.getMaxCoperti()).andReturn(maxCoperti);
+		expect(ordinazioneCreator.creaOrdinazione(tavolo)).andReturn(ordinazione);
 		
 		gestOrdinazioni.setTavoloCreator(tavoloCreator);
 		gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
