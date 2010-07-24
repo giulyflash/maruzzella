@@ -463,5 +463,48 @@ public class TestGestoreOrdinazioni {
 		gestOrdinazioni.ordinaPiatto(tavoloRichiesto, nomePiatto, prezzoPiatto);
 		
 	}
+	
+	
+	/**Test14
+	 * 
+	 * Semplice test per il metodo ordinaPiatto numTavolo non valido
+	 */
+	@Test(expected=InvalidInputException.class)
+	public void testOrdinaPiattoTavoloZeroSiTavoli()throws InvalidInputException{
+IGestoreOrdinazioni gestOrdinazioni = new GestoreOrdinazioni();
+		
+		int tavoloRichiesto=0;
+		String nomePiatto="Maruzze con la spina";
+		double prezzoPiatto=10.00;
+		int numeroTavolo = 1;
+		int maxCoperti = 7;
+		double costoCoperto = 2;
+		
+	
+		ITavolo tavolo = createMock(Tavolo.class);
+		IOrdinazione ordinazione = createMock(Ordinazione.class);
+		ITavoloCreator tavoloCreator = createMock(TavoloCreator.class);
+		IOrdinazioneCreator ordinazioneCreator = createMock(OrdinazioneCreator.class);
+		
+		//Record and playback
+		expect(tavoloCreator.creaTavolo(EasyMock.geq(1),EasyMock.eq(maxCoperti), EasyMock.eq(costoCoperto))).andReturn(tavolo);
+		expect(tavolo.isLibero()).andReturn(true);
+		expect(tavolo.getMaxCoperti()).andReturn(maxCoperti);
+		tavolo.setCoperti(maxCoperti);
+		
+		expect(ordinazioneCreator.creaOrdinazione(tavolo)).andReturn(ordinazione);
+		expect(tavolo.getNumero()).andReturn(numeroTavolo);
+		
+		gestOrdinazioni.setTavoloCreator(tavoloCreator);
+		gestOrdinazioni.setOrdinazioneCreator(ordinazioneCreator);
+		
+		replay(tavolo, tavoloCreator);
+		//end
+		
+		gestOrdinazioni.aggiungiTavolo(maxCoperti, costoCoperto);
+		
+		gestOrdinazioni.ordinaPiatto(tavoloRichiesto, nomePiatto, prezzoPiatto);
+	}
+		
 }
 
